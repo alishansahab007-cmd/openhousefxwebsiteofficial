@@ -20,6 +20,9 @@ review Hostinger's migration guidance before changing the existing website.
    commands, use `npm run build` to build and `npm start` to start.
 5. Add the environment variables below, then deploy.
 
+The build script selects webpack for compatibility with Hostinger's build
+servers. Use `npm run build` and keep `.next` as the output directory.
+
 The ZIP has `package.json` and `package-lock.json` at its root. Hostinger
 installs packages from the lockfile and creates the Next.js production build.
 
