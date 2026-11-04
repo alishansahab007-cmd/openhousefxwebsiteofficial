@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #071b29;
+  --color-bg-raised: #0e2939;
+  --color-ink: #f4f6f7;
+  --color-ink-dim: #afc4d0;
+  --color-gold-100: #f6e8c2;
+  --color-gold-300: #e4c66f;
+  --color-gold-500: #d6af58;
+  --color-gold-700: #9c7937;
+  --color-line: rgba(179, 203, 216, 0.14);
+  --color-glass: rgba(255, 255, 255, 0.05);
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-raised: var(--color-bg-raised);
+  --color-ink: var(--color-ink);
+  --color-ink-dim: var(--color-ink-dim);
+  --color-gold-100: var(--color-gold-100);
+  --color-gold-300: var(--color-gold-300);
+  --color-gold-500: var(--color-gold-500);
+  --color-gold-700: var(--color-gold-700);
+  --color-line: var(--color-line);
+  --color-glass: var(--color-glass);
+
+  --font-display: var(--font-bricolage), "Bricolage Grotesque", sans-serif;
+  --font-body: var(--font-inter), "Inter", sans-serif;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold-500);
+}
+
+.hero-fallback-image {
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(1.12) saturate(0.96);
+  transform: scale(1.04);
+}
+
+.hero-fallback-image--animated {
+  animation: hero-ken-burns 22s ease-in-out infinite alternate;
+}
+
+.hero-scroll-cue__line {
+  display: block;
+  width: 3.5rem;
+  height: 1px;
+  background: var(--color-gold-500);
+  transform-origin: left center;
+  animation: hero-scroll-line 1.8s ease-in-out infinite;
+}
+
+.packages-card {
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    background-color 260ms ease;
+}
+
+@keyframes hero-ken-burns {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(-0.6%, -0.4%, 0);
+  }
+}
+
+@keyframes hero-scroll-line {
+  0%,
+  100% {
+    transform: scaleX(0.35);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .packages-card:hover {
+    transform: translateY(-0.35rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
