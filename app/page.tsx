@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <main className="overflow-x-clip">
+      <main id="top" className="overflow-x-clip">
         <CinematicHero />
         <Problem />
         <Transformation />

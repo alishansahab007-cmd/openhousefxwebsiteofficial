@@ -35,7 +35,7 @@ export function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/95 backdrop-blur-md">
       <div className="site-shell flex min-h-18 items-center justify-between gap-5 md:min-h-20">
-        <Link href="/" className="inline-flex items-center gap-3" onClick={() => setMenuOpen(false)}>
+        <Link href="/#top" className="inline-flex items-center gap-3" onClick={() => setMenuOpen(false)}>
           <Image src={MEDIA.logoIcon} alt="" width={36} height={36} className="h-9 w-9" />
           <span className="leading-none">
             <span className="block font-display text-[1.05rem] font-bold uppercase tracking-[0.13em] text-ink">
