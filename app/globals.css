@@ -32,6 +32,7 @@
 }
 
 html {
+  scrollbar-gutter: stable;
   color-scheme: dark;
   scroll-behavior: smooth;
   scroll-padding-top: calc(5rem + 1px);
@@ -372,4 +373,10 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .showcase-choice:hover { translate: none; }
+}
+
+html[data-welcome="active"] { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-welcome="active"] { overflow: auto; }
 }

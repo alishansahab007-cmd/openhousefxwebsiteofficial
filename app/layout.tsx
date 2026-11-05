@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { CinematicWelcome } from "@/components/welcome/CinematicWelcome";
+import { WELCOME_BOOTSTRAP } from "@/lib/welcome";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,9 +27,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${inter.variable} ${playfair.variable} h-full bg-bg font-sans antialiased`}
     >
-      <body className="min-h-full bg-bg text-ink">{children}</body>
+      <head><script dangerouslySetInnerHTML={{ __html: WELCOME_BOOTSTRAP }} /></head>
+      <body className="min-h-full bg-bg text-ink">
+        <CinematicWelcome />
+        <div id="site-content">{children}</div>
+      </body>
     </html>
   );
 }
