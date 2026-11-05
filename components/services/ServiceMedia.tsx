@@ -9,6 +9,8 @@ interface Props {
   service: Service;
   /** Drives the picked treatment's activation externally — see useCardInteraction. */
   forceActive?: boolean;
+  sizes?: string;
+  preload?: boolean;
 }
 
 /**
@@ -17,7 +19,7 @@ interface Props {
  * need "use client" just to route to one — each treatment below opts into
  * client interactivity individually.
  */
-export function ServiceMedia({ service, forceActive }: Props) {
+export function ServiceMedia({ service, forceActive, sizes, preload }: Props) {
   switch (service.kind) {
     case "before-after":
       return (
@@ -26,6 +28,7 @@ export function ServiceMedia({ service, forceActive }: Props) {
           after={service.after}
           label={service.name}
           forceActive={forceActive}
+          sizes={sizes}
         />
       );
     case "video":
@@ -34,8 +37,10 @@ export function ServiceMedia({ service, forceActive }: Props) {
           poster={service.poster}
           videoSrc={service.videoSrc}
           variant={service.variant}
+          preload={preload}
           label={service.name}
           forceActive={forceActive}
+          sizes={sizes}
         />
       );
     case "interactive-3d":
@@ -44,14 +49,15 @@ export function ServiceMedia({ service, forceActive }: Props) {
           poster={service.poster}
           label={service.name}
           forceActive={forceActive}
+          sizes={sizes}
         />
       );
     case "pan-zoom":
       return (
-        <PanZoomImage image={service.image} label={service.name} forceActive={forceActive} />
+        <PanZoomImage image={service.image} label={service.name} forceActive={forceActive} sizes={sizes} />
       );
     case "scroll-mock":
-      return <ScrollMockCard label={service.name} forceActive={forceActive} />;
+      return <ScrollMockCard label={service.name} forceActive={forceActive} sizes={sizes} />;
     default: {
       const exhaustiveCheck: never = service;
       return exhaustiveCheck;

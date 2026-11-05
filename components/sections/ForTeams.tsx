@@ -16,13 +16,12 @@ export function ForTeams() {
 
         <Reveal
           stagger={0.08}
-          start="top 85%"
-          className="mt-16 grid gap-6 md:grid-cols-3"
+          className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3"
         >
           {FOR_TEAMS.map((row) => (
             <div
               key={row.segment}
-              className="overflow-hidden rounded-sm border border-line bg-bg-raised"
+              className="glass-panel overflow-hidden rounded-md"
             >
               <div className="relative aspect-[4/3] w-full">
                 <Image

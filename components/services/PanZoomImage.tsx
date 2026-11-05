@@ -9,6 +9,7 @@ interface Props {
   label: string;
   /** Drives activation externally (e.g. a selector button), OR'd with hover/focus/touch. */
   forceActive?: boolean;
+  sizes?: string;
 }
 
 const SIZES = "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw";
@@ -17,7 +18,7 @@ const SIZES = "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw";
  * Subtle pan/zoom on hover/focus/touch — a pure CSS transform, no animation
  * loop, cheap enough to leave on for mobile/low-power devices.
  */
-export function PanZoomImage({ image, label, forceActive }: Props) {
+export function PanZoomImage({ image, label, forceActive, sizes = SIZES }: Props) {
   const { active, bind } = useCardInteraction(forceActive);
   const reducedMotion = useReducedMotion();
   const zoomed = active && !reducedMotion;
@@ -33,7 +34,7 @@ export function PanZoomImage({ image, label, forceActive }: Props) {
         src={image}
         alt=""
         fill
-        sizes={SIZES}
+        sizes={sizes}
         className={`object-cover transition-transform duration-700 ease-out ${
           zoomed ? "scale-110 -translate-y-1" : "scale-100"
         }`}

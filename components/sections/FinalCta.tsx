@@ -15,12 +15,13 @@ export function FinalCta() {
 
       <div className="relative mx-auto max-w-3xl px-6 text-center md:px-14">
         <Reveal>
-          <h2 className="font-display text-3xl font-semibold leading-tight text-ink md:text-5xl">
+          <p className="label mb-5">Your next listing</p>
+          <h2 className="editorial-heading font-display">
             {FINAL_CTA.headline}
           </h2>
           <div className="mt-10 flex justify-center">
             <Button href="/start-a-listing" variant="primary" className="px-10">
-              {FINAL_CTA.cta}
+              Request a quotation
             </Button>
           </div>
         </Reveal>

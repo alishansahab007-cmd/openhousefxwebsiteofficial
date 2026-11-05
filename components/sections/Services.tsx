@@ -5,28 +5,28 @@ import { ServiceMedia } from "@/components/services/ServiceMedia";
 
 export function Services() {
   return (
-    <section id="services" className="border-t border-line bg-bg py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6 md:px-14">
+    <section id="services" className="border-t border-line bg-bg py-24">
+      <div className="site-shell">
         <Reveal className="max-w-2xl">
-          <SectionLabel>Services</SectionLabel>
-          <h2 className="font-display mt-4 text-3xl font-semibold leading-tight text-ink md:text-4xl">
-            Every output a listing needs, produced by one team.
+          <SectionLabel className="editorial-label">Studio services</SectionLabel>
+          <h2 className="editorial-heading mt-5 font-display">
+            Everything a listing needs.
+            <em className="editorial-accent block">One creative team.</em>
           </h2>
         </Reveal>
 
         <Reveal
           stagger={0.06}
-          start="top 88%"
-          className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-5 xl:gap-8"
         >
           {SERVICES.map((service) => (
             <div
               key={service.number}
-              className="group bg-bg transition focus-within:bg-bg-raised hover:bg-bg-raised"
+              className="glass-panel interactive-card group overflow-hidden rounded-md"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <ServiceMedia service={service} />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/35 to-transparent" />
               </div>
               <div className="px-6 py-8">
                 <p className="font-display text-sm text-gold-500">{service.number}</p>

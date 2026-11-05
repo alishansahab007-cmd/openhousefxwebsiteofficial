@@ -1,125 +1,141 @@
 "use client";
 
-import { useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { useInView } from "framer-motion";
 import { SERVICES, TRANSFORMATION } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ServiceMedia } from "@/components/services/ServiceMedia";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
-const SWAP_FADE_MS = 250;
+const ShowcaseTelemetry = dynamic(
+  () => import("./ShowcaseTelemetry").then((module) => module.ShowcaseTelemetry),
+  { ssr: false }
+);
 
-/**
- * The central media doubles as a live demo of "one listing becomes
- * everything you need": selecting an output button below drives the exact
- * same treatment component that service's own Services-grid card uses
- * (BeforeAfterHover, HoverVideoCard, InteractivePreviewCard, PanZoomImage,
- * ScrollMockCard, dispatched through the existing ServiceMedia router) via
- * `forceActive`, rather than a hover-only reveal — clicking a button is the
- * activation here, not hovering the media box itself. Deselecting (or a
- * fresh page load) returns to the static "One Listing" input photo.
- */
+const FEATURED_SERVICE = "02";
+const SHOWCASE_SIZES = "(min-width: 1024px) 896px, 90vw";
+const SWAP_FADE_MS = 180;
+const OUTPUT_NOTES = [
+  "Image enhancement",
+  "Motion study",
+  "Vertical edit",
+  "Interior styling",
+  "Day to dusk",
+  "Spatial detail",
+  "Spatial preview",
+  "Listing microsite",
+];
+
 export function Transformation() {
-  const [selectedNumber, setSelectedNumber] = useState<string | null>(null);
-  const [displayNumber, setDisplayNumber] = useState<string | null>(null);
+  const [selectedNumber, setSelectedNumber] = useState<string | null>(FEATURED_SERVICE);
+  const [displayNumber, setDisplayNumber] = useState<string | null>(FEATURED_SERVICE);
   const [fading, setFading] = useState(false);
+  const [featuredPoster, setFeaturedPoster] = useState(true);
   const reducedMotion = useReducedMotion();
   const swapTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const frameInView = useInView(frameRef, { amount: "some" });
+
+  useEffect(() => () => clearTimeout(swapTimer.current), []);
 
   function selectOutput(serviceNumber: string) {
     const next = selectedNumber === serviceNumber ? null : serviceNumber;
     setSelectedNumber(next);
     clearTimeout(swapTimer.current);
 
+    const frame = frameRef.current;
+    if (frame && frame.getBoundingClientRect().bottom < 80) {
+      frame.scrollIntoView({ block: "start" });
+    }
+
     if (reducedMotion) {
+      setFeaturedPoster(false);
       setDisplayNumber(next);
+      setFading(false);
       return;
     }
 
     setFading(true);
     swapTimer.current = setTimeout(() => {
+      setFeaturedPoster(false);
       setDisplayNumber(next);
       setFading(false);
     }, SWAP_FADE_MS);
   }
 
-  const activeService = SERVICES.find((service) => service.number === displayNumber) ?? null;
-  // Interactive Experiences ("Drag to Explore") and Property Websites (its
-  // own mini-site copy) already carry their own on-screen text — layering
-  // the persistent Input/Output caption on top of those would double up and
-  // clash, so it's only shown for treatments with no text of their own.
-  const showCaption =
-    !activeService || (activeService.kind !== "interactive-3d" && activeService.kind !== "scroll-mock");
+  const activeService = SERVICES.find((service) => service.number === displayNumber);
+  const selectedLabel = TRANSFORMATION.outputs.find((output) => output.serviceNumber === displayNumber)?.label;
+  const isFilm = displayNumber === FEATURED_SERVICE;
+  const showCaption = activeService?.kind !== "interactive-3d" && activeService?.kind !== "scroll-mock";
 
   return (
-    <section id="work" className="border-t border-line bg-bg-raised py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6 md:px-14">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionLabel className="justify-center">{TRANSFORMATION.kicker}</SectionLabel>
-          <h2 className="font-display mt-4 text-3xl font-semibold leading-tight text-ink md:text-4xl">
-            {TRANSFORMATION.headline}
+    <section id="work" className="showcase-section relative isolate overflow-hidden border-t border-line py-24" aria-labelledby="work-heading">
+      <div className="showcase-ambient pointer-events-none absolute inset-0" aria-hidden="true" />
+      <div className="site-shell relative">
+        <Reveal className="mx-auto max-w-3xl text-center" y={30} stiffness={70}>
+          <SectionLabel className="editorial-label justify-center">{TRANSFORMATION.kicker}</SectionLabel>
+          <h2 id="work-heading" className="editorial-heading mt-5">
+            One listing. <em className="editorial-accent">Eight ways to show it.</em>
           </h2>
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-ink-dim sm:text-base">
+            Choose a deliverable to see how the same listing can look across formats.
+          </p>
         </Reveal>
 
-        <Reveal className="mt-16 flex justify-center">
-          <div className="relative w-full max-w-sm overflow-hidden rounded-sm border border-gold-500">
+        <div id="showcase-preview" ref={frameRef} className="glass-liquid-crystal mx-auto mt-12 max-w-4xl rounded-xl p-1.5 sm:p-2">
+          <div className="showcase-frame relative isolate aspect-video overflow-hidden rounded-lg bg-bg">
             <div
-              className={`relative aspect-[4/3] w-full transition-opacity ease-out ${
-                fading ? "opacity-0" : "opacity-100"
-              }`}
-              style={{ transitionDuration: `${SWAP_FADE_MS}ms` }}
+              className={`absolute inset-0 transition-opacity duration-200 ${fading ? "opacity-45" : "opacity-100"}`}
             >
               {activeService ? (
-                <ServiceMedia service={activeService} forceActive />
+                <ServiceMedia key={activeService.number} service={activeService} forceActive={frameInView} sizes={SHOWCASE_SIZES} preload={featuredPoster} />
               ) : (
                 <Image
                   src={TRANSFORMATION.inputImage}
-                  alt="A listing's property photo, before OpenHouseFX"
+                  alt="Exterior property photograph before enhancement"
                   fill
-                  sizes="(min-width: 768px) 384px, 90vw"
+                  sizes={SHOWCASE_SIZES}
                   className="object-cover"
                 />
               )}
-              {showCaption ? (
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/80 via-bg/10 to-transparent" />
-              ) : null}
             </div>
+            <span className="sr-only" aria-live="polite">{selectedLabel ?? TRANSFORMATION.input} preview</span>
             {showCaption ? (
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 px-6 py-4">
-                <p className="label !text-ink-dim">{activeService ? "Output" : "Input"}</p>
-                <p className="font-display mt-1 text-xl font-semibold text-ink md:text-2xl">
-                  {activeService ? activeService.name : TRANSFORMATION.input}
-                </p>
-              </div>
+              <>
+                <div className="showcase-scrim pointer-events-none absolute inset-0" />
+                <div className="pointer-events-none absolute bottom-3.5 left-4 sm:bottom-6 sm:left-6">
+                  <p className="label">{activeService ? "Output" : "Input"}</p>
+                  <p className="mt-1 text-sm font-medium text-white sm:text-xl">{selectedLabel ?? TRANSFORMATION.input}</p>
+                </div>
+              </>
             ) : null}
+            {frameInView && !fading && isFilm ? <ShowcaseTelemetry /> : null}
           </div>
-        </Reveal>
-
-        <div className="mt-8 flex justify-center">
-          <div className="h-10 w-px bg-line" />
         </div>
 
-        <Reveal
-          stagger={0.06}
-          start="top 90%"
-          className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4"
-        >
-          {TRANSFORMATION.outputs.map((output) => {
+        <Reveal stagger={0.1} className="mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {TRANSFORMATION.outputs.map((output, index) => {
             const isSelected = selectedNumber === output.serviceNumber;
             return (
               <button
                 key={output.serviceNumber}
                 type="button"
                 aria-pressed={isSelected}
+                aria-controls="showcase-preview"
                 onClick={() => selectOutput(output.serviceNumber)}
-                className={`rounded-sm border px-4 py-8 text-center text-sm transition ${
-                  isSelected
-                    ? "border-gold-500 bg-bg text-gold-300"
-                    : "border-line bg-bg text-ink hover:border-gold-500"
-                }`}
+                className="glass-liquid-crystal showcase-choice relative flex min-h-25 cursor-pointer flex-col items-start gap-2 rounded-lg p-4 text-left"
               >
-                {output.label}
+                <span className="flex w-full items-center justify-between gap-3 text-[0.625rem] font-semibold uppercase tracking-[0.15em]">
+                  <span className="text-gold-500">{output.serviceNumber}</span>
+                  <span className="text-ink-dim">{OUTPUT_NOTES[index]}</span>
+                </span>
+                <span className="text-sm font-semibold text-ink">{output.label}</span>
+                <span className="choice-indicator" aria-hidden="true">
+                  <i /><i /><i /><i /><i />
+                </span>
               </button>
             );
           })}

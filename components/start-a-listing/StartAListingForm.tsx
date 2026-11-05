@@ -285,7 +285,7 @@ export function StartAListingForm() {
         <div>
           <button
             type="submit"
-            className="flex min-h-11 w-full items-center justify-center rounded-sm border border-gold-500 bg-gold-500 px-6 text-xs font-medium uppercase tracking-[0.2em] text-bg transition hover:border-gold-300 hover:bg-gold-300 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+            className="flex min-h-11 w-full items-center justify-center rounded-sm border border-gold-500 bg-gold-500 px-6 text-xs font-medium uppercase tracking-[0.2em] text-bg transition duration-300 enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
           >
             {status === "submitting" ? "Sending…" : "Start The Conversation"}
           </button>

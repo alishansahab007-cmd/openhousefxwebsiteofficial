@@ -10,6 +10,7 @@ interface Props {
   label: string;
   /** Drives activation externally (e.g. a selector button), OR'd with hover/focus/touch. */
   forceActive?: boolean;
+  sizes?: string;
 }
 
 const THUMB_SIZES = "10vw";
@@ -25,7 +26,7 @@ const SCROLL_DURATION_MS = 8000;
  * is toggled. Travel distance is measured via ResizeObserver rather than a
  * fixed percentage, since the stacked sections are different heights.
  */
-export function ScrollMockCard({ label, forceActive }: Props) {
+export function ScrollMockCard({ label, forceActive, sizes = THUMB_SIZES }: Props) {
   const { active, bind } = useCardInteraction(forceActive);
   const reducedMotion = useReducedMotion();
   const animate = active && !reducedMotion;
@@ -75,7 +76,7 @@ export function ScrollMockCard({ label, forceActive }: Props) {
             src={MEDIA.agentListing}
             alt=""
             fill
-            sizes={THUMB_SIZES}
+            sizes={sizes}
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/30 to-transparent" />
@@ -113,7 +114,7 @@ export function ScrollMockCard({ label, forceActive }: Props) {
             {[MEDIA.architecturalInterior, MEDIA.stagedRoom, MEDIA.listingExteriorTwilight].map(
               (src) => (
                 <div key={src} className="relative aspect-square overflow-hidden rounded-[1px]">
-                  <Image src={src} alt="" fill sizes={THUMB_SIZES} className="object-cover" />
+                  <Image src={src} alt="" fill sizes={sizes === THUMB_SIZES ? THUMB_SIZES : "(min-width: 1024px) 300px, 30vw"} className="object-cover" />
                 </div>
               )
             )}

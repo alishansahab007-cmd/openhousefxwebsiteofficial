@@ -11,6 +11,7 @@ interface Props {
   label: string;
   /** Drives activation externally (e.g. a selector button), OR'd with hover/focus/touch. */
   forceActive?: boolean;
+  sizes?: string;
 }
 
 const SIZES = "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw";
@@ -36,7 +37,7 @@ const CardArchitecturalScene = dynamic(
  * entirely under prefers-reduced-motion (autoRotate is continuous motion
  * with no pause switch) and when the browser lacks WebGL support.
  */
-export function InteractivePreviewCard({ poster, label, forceActive }: Props) {
+export function InteractivePreviewCard({ poster, label, forceActive, sizes = SIZES }: Props) {
   const { active, bind } = useCardInteraction(forceActive);
   const reducedMotion = useReducedMotion();
   const supportsWebGL = useSupportsWebGL();
@@ -53,7 +54,7 @@ export function InteractivePreviewCard({ poster, label, forceActive }: Props) {
         src={poster}
         alt=""
         fill
-        sizes={SIZES}
+        sizes={sizes}
         className={`object-cover transition-opacity duration-500 ${
           showScene ? "opacity-0" : "opacity-100"
         }`}

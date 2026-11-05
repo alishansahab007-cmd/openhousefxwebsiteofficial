@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { useCardInteraction } from "@/lib/hooks/useCardInteraction";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
@@ -17,6 +18,8 @@ interface Props {
   variant?: "landscape" | "portrait";
   /** Drives activation externally (e.g. a selector button), OR'd with hover/focus/touch. */
   forceActive?: boolean;
+  sizes?: string;
+  preload?: boolean;
 }
 
 const SIZES = "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw";
@@ -30,7 +33,7 @@ const SIZES = "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw";
  * hidden) on leave — which is also what makes the next activation start
  * over from the beginning: a fresh <video> mount always begins at time 0.
  */
-export function HoverVideoCard({ poster, videoSrc, variant = "landscape", label, forceActive }: Props) {
+export function HoverVideoCard({ poster, videoSrc, variant = "landscape", label, forceActive, sizes = SIZES, preload = false }: Props) {
   const { active, bind } = useCardInteraction(forceActive);
   const reducedMotion = useReducedMotion();
   const playing = active && !reducedMotion && Boolean(videoSrc);
@@ -52,22 +55,29 @@ export function HoverVideoCard({ poster, videoSrc, variant = "landscape", label,
           src={poster}
           alt=""
           fill
-          sizes={SIZES}
-          className={`object-cover transition-opacity duration-500 ${
-            playing ? "opacity-0" : "opacity-100"
-          }`}
+          sizes={sizes}
+          preload={preload}
+          className="object-cover"
         />
-        {playing ? (
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
-            src={videoSrc}
-            muted
-            playsInline
-            autoPlay
-            preload="metadata"
-          />
-        ) : null}
+        {playing && videoSrc ? <PreviewVideo src={videoSrc} /> : null}
       </div>
     </div>
+  );
+}
+
+function PreviewVideo({ src }: { src: string }) {
+  const [hasFrame, setHasFrame] = useState(false);
+
+  return (
+    <video
+      className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${hasFrame ? "opacity-100" : "opacity-0"}`}
+      src={src}
+      muted
+      playsInline
+      autoPlay
+      preload="metadata"
+      onPlaying={() => setHasFrame(true)}
+      onError={() => setHasFrame(false)}
+    />
   );
 }

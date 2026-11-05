@@ -47,26 +47,38 @@ function BeforeAfterSlider({ label, description, before, after }: SliderProps) {
     }
   }
 
-  function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
-    if (e.key === "ArrowLeft") {
-      step(-5);
-      e.preventDefault();
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    switch (event.key) {
+      case "ArrowLeft":
+      case "ArrowDown":
+        step(-5);
+        break;
+      case "ArrowRight":
+      case "ArrowUp":
+        step(5);
+        break;
+      case "Home":
+        setPosition(0);
+        break;
+      case "End":
+        setPosition(100);
+        break;
+      default:
+        return;
     }
-    if (e.key === "ArrowRight") {
-      step(5);
-      e.preventDefault();
-    }
+    event.preventDefault();
   }
 
   return (
     <div>
       <div
         ref={trackRef}
-        className="relative aspect-[16/10] w-full touch-none select-none overflow-hidden rounded-sm border border-line"
+        className="relative aspect-[16/10] w-full touch-pan-y select-none overflow-hidden rounded-sm border border-line"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
+        onLostPointerCapture={() => { draggingRef.current = false; }}
       >
         <Image
           src={after}
@@ -118,7 +130,7 @@ function BeforeAfterSlider({ label, description, before, after }: SliderProps) {
           <button
             type="button"
             onClick={() => step(-10)}
-            aria-label="Shift comparison toward raw"
+            aria-label="Move comparison divider left"
             className="relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-sm border border-line text-ink transition before:absolute before:-inset-1 before:content-[''] hover:border-gold-500"
           >
             ‹
@@ -126,7 +138,7 @@ function BeforeAfterSlider({ label, description, before, after }: SliderProps) {
           <button
             type="button"
             onClick={() => step(10)}
-            aria-label="Shift comparison toward enhanced"
+            aria-label="Move comparison divider right"
             className="relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-sm border border-line text-ink transition before:absolute before:-inset-1 before:content-[''] hover:border-gold-500"
           >
             ›
@@ -181,8 +193,7 @@ export function BeforeAfter() {
 
         <Reveal
           stagger={0.1}
-          start="top 88%"
-          className="mt-16 grid gap-10 md:grid-cols-3 md:gap-8"
+          className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3"
         >
           {BEFORE_AFTER.pairs.map((pair) =>
             pair.kind === "video" ? (

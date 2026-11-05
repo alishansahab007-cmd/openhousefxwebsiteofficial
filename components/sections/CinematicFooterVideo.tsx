@@ -23,9 +23,9 @@ const BLACK_HOLD_MS = 200;
  * tight push-in) doesn't match its opening frame (a wide establishing
  * shot), so a raw loop would show a hard cut. Instead the video layer fades
  * to black just before it ends, the clip resets and resumes while
- * invisible, then fades back in — the cut happens inside the black beat,
+ * invisible, then fades back in — the cut happens while the poster is visible,
  * never on screen. Only the video's own opacity animates here: the poster
- * (shown once, before the video first takes over) and the CTA/gradient
+ * (which stays behind the video) and the CTA/gradient
  * above are untouched by this cycle. Falls back to a static poster under
  * prefers-reduced-motion, and the video is never even added to the DOM
  * until the section is actually relevant, so nothing loads early.
@@ -34,13 +34,13 @@ export function CinematicFooterVideo({ poster, videoSrc }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isNearViewport, setIsNearViewport] = useState(false);
-  const [videoDimmed, setVideoDimmed] = useState(false);
+  const [videoDimmed, setVideoDimmed] = useState(true);
   const reducedMotion = useReducedMotion();
   const playVideo = isNearViewport && !reducedMotion;
 
   useEffect(() => {
     const el = containerRef.current;
-    if (!el) return;
+    if (!el || typeof IntersectionObserver === "undefined") return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -60,6 +60,7 @@ export function CinematicFooterVideo({ poster, videoSrc }: Props) {
     const video = videoRef.current;
     if (!video) return;
 
+    let restartTimer: number | undefined;
     const handleTimeUpdate = () => {
       if (video.duration && video.duration - video.currentTime <= FADE_LEAD_S) {
         setVideoDimmed(true);
@@ -68,13 +69,15 @@ export function CinematicFooterVideo({ poster, videoSrc }: Props) {
 
     const handleEnded = () => {
       video.currentTime = 0;
-      video.play().catch(() => {});
-      window.setTimeout(() => setVideoDimmed(false), BLACK_HOLD_MS);
+      restartTimer = window.setTimeout(() => {
+        void video.play().catch(() => {});
+      }, BLACK_HOLD_MS);
     };
 
     video.addEventListener("timeupdate", handleTimeUpdate);
     video.addEventListener("ended", handleEnded);
     return () => {
+      window.clearTimeout(restartTimer);
       video.removeEventListener("timeupdate", handleTimeUpdate);
       video.removeEventListener("ended", handleEnded);
     };
@@ -87,9 +90,7 @@ export function CinematicFooterVideo({ poster, videoSrc }: Props) {
         alt=""
         fill
         sizes="100vw"
-        className={`object-cover transition-opacity duration-700 ${
-          playVideo ? "opacity-0" : "opacity-100"
-        }`}
+        className="object-cover"
         aria-hidden="true"
       />
       {playVideo ? (
@@ -103,6 +104,8 @@ export function CinematicFooterVideo({ poster, videoSrc }: Props) {
           muted
           playsInline
           autoPlay
+          onPlaying={() => setVideoDimmed(false)}
+          onError={() => setVideoDimmed(true)}
           preload="metadata"
           aria-hidden="true"
         />

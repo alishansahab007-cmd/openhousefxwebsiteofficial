@@ -1,99 +1,56 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-let pluginRegistered = false;
+import { useEffect, type ReactNode } from "react";
+import { useAnimate } from "framer-motion";
 
 interface RevealProps {
   children: ReactNode;
   className?: string;
-  /** Starting vertical offset in px. */
-  y?: number;
-  duration?: number;
   delay?: number;
-  /** If set, animates direct children individually with this stagger (seconds). */
   stagger?: number;
-  /** ScrollTrigger `start` value. */
-  start?: string;
+  y?: number;
+  stiffness?: number;
 }
 
-/**
- * Standard scroll-reveal wrapper: fades + slides content up once it enters
- * the viewport. Respects prefers-reduced-motion by rendering the final state
- * immediately with no animation. Pass `stagger` to animate a grid's direct
- * children individually instead of the wrapper as one block.
- *
- * Sets the hidden state with `gsap.set()` and plays the reveal explicitly
- * from a `once: true` ScrollTrigger `onEnter` callback, rather than handing
- * GSAP a `.from()` tween with an attached `scrollTrigger` shorthand — the
- * shorthand form was intermittently leaving elements' `progress()` reported
- * as complete while the DOM never actually received the rendered (opacity:1)
- * values, even across an explicit `invalidate()` + re-seek. Driving the
- * animation from an explicit callback avoids whatever internal state that
- * shorthand was getting stuck in and is easy to reason about.
- */
-export function Reveal({
-  children,
-  className,
-  y = 28,
-  duration = 0.6,
-  delay = 0,
-  stagger,
-  start = "top 85%",
-}: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+export function Reveal({ children, className, delay = 0, stagger, y = 20, stiffness = 100 }: RevealProps) {
+  const [scope, animate] = useAnimate<HTMLDivElement>();
 
-  useGSAP(
-    () => {
-      const el = ref.current;
-      if (!el) return;
+  useEffect(() => {
+    const wrapper = scope.current;
+    if (!wrapper || typeof IntersectionObserver === "undefined") return;
 
-      const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      const targets: Element | Element[] = stagger
-        ? Array.from(el.children)
-        : el;
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const targets = stagger ? Array.from(wrapper.children) : [wrapper];
 
-      if (prefersReduced) {
-        gsap.set(targets, { opacity: 1, y: 0 });
-        return;
-      }
+    // Server HTML stays visible. Only play an entrance when a target scrolls into view.
+    const observer = new IntersectionObserver((entries) => {
+      const entering = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => targets.indexOf(a.target) - targets.indexOf(b.target));
 
-      if (!pluginRegistered) {
-        gsap.registerPlugin(ScrollTrigger);
-        pluginRegistered = true;
-      }
-
-      gsap.set(targets, { opacity: 0, y });
-
-      ScrollTrigger.create({
-        trigger: el,
-        start,
-        end: "bottom top",
-        once: true,
-        onEnter: () => {
-          gsap.to(targets, {
-            opacity: 1,
-            y: 0,
-            duration,
-            delay,
-            stagger,
-            ease: "power2.out",
-            overwrite: true,
-          });
-        },
+      entering.forEach(({ target }, index) => {
+        observer.unobserve(target);
+        if (preference.matches) return;
+        animate(
+          target,
+          { opacity: [0, 1], y: [y, 0] },
+          {
+            type: "spring",
+            stiffness,
+            damping: 20,
+            delay: delay + index * (stagger ?? 0),
+          }
+        );
       });
-    },
-    { scope: ref, dependencies: [y, duration, delay, stagger, start] }
-  );
+    });
 
-  return (
-    <div ref={ref} className={className}>
-      {children}
-    </div>
-  );
+    for (const target of targets) {
+      const { top, bottom } = target.getBoundingClientRect();
+      if (top >= window.innerHeight || bottom <= 0) observer.observe(target);
+    }
+
+    return () => observer.disconnect();
+  }, [animate, delay, scope, stagger, stiffness, y]);
+
+  return <div ref={scope} className={className}>{children}</div>;
 }
