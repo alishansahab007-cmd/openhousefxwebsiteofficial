@@ -8,6 +8,7 @@ const LINKS = [
   { href: "/#services", label: "Services" },
   { href: "/#process", label: "Process" },
   { href: "/#packages", label: "Packages" },
+  { href: "/#technology", label: "Technology" },
 ];
 
 const SOCIAL_LINKS = [

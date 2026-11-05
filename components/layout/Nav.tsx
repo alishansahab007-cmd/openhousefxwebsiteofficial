@@ -11,6 +11,7 @@ const LINKS = [
   { href: "/#services", label: "Services" },
   { href: "/#packages", label: "Packages" },
   { href: "/#process", label: "Process" },
+  { href: "/#technology", label: "Technology" },
 ];
 
 export function Nav() {
@@ -46,7 +47,7 @@ export function Nav() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-4 md:flex lg:gap-9" aria-label="Main navigation">
+        <nav className="hidden items-center gap-3 md:flex lg:gap-7" aria-label="Main navigation">
           {LINKS.map(({ href, label }) => (
             <Link key={href} href={href} className="text-sm font-medium text-ink-dim transition hover:text-gold-500">
               {label}

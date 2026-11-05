@@ -10,6 +10,7 @@ import { Distribution } from "@/components/sections/Distribution";
 import { Packages } from "@/components/sections/Packages";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { ForTeams } from "@/components/sections/ForTeams";
+import { EcosystemSection } from "@/components/ecosystem/EcosystemSection";
 import { FinalCta } from "@/components/sections/FinalCta";
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
         <Packages />
         <HowItWorks />
         <ForTeams />
+        <EcosystemSection />
         <FinalCta />
       </main>
       <Footer />
