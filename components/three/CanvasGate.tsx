@@ -13,23 +13,19 @@ const ArchitecturalScene = dynamic(
 export function CanvasGate({ className }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [shouldMount, setShouldMount] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const supportsWebGL = useSupportsWebGL();
 
   useEffect(() => {
     const el = containerRef.current;
-    if (!el || !supportsWebGL) return;
+    if (!el || !supportsWebGL || typeof IntersectionObserver === "undefined") return;
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldMount(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "200px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+      if (entry.isIntersecting) setShouldMount(true);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [supportsWebGL]);
 
   return (
@@ -41,7 +37,7 @@ export function CanvasGate({ className }: { className?: string }) {
       {supportsWebGL === false ? (
         <StaticMassingFallback />
       ) : shouldMount ? (
-        <ArchitecturalScene />
+        <ArchitecturalScene active={isVisible} />
       ) : null}
     </div>
   );

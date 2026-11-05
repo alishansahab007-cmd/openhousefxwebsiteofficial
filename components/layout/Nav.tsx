@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { MEDIA } from "@/lib/media";
 
@@ -11,9 +12,11 @@ const LINKS = [
   { href: "/#services", label: "Services" },
   { href: "/#packages", label: "Packages" },
   { href: "/#process", label: "Process" },
+  { href: "/#technology", label: "Technology" },
 ];
 
 export function Nav() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
 
@@ -34,7 +37,7 @@ export function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/95 backdrop-blur-md">
       <div className="site-shell flex min-h-18 items-center justify-between gap-5 md:min-h-20">
-        <Link href="/" className="inline-flex items-center gap-3" onClick={() => setMenuOpen(false)}>
+        <a href={pathname === "/" ? "#top" : "/#top"} className="inline-flex items-center gap-3" onClick={() => setMenuOpen(false)}>
           <Image src={MEDIA.logoIcon} alt="" width={36} height={36} className="h-9 w-9" />
           <span className="leading-none">
             <span className="block font-display text-[1.05rem] font-bold uppercase tracking-[0.13em] text-ink">
@@ -44,9 +47,9 @@ export function Nav() {
               Property media
             </span>
           </span>
-        </Link>
+        </a>
 
-        <nav className="hidden items-center gap-4 md:flex lg:gap-9" aria-label="Main navigation">
+        <nav className="hidden items-center gap-3 md:flex lg:gap-7" aria-label="Main navigation">
           {LINKS.map(({ href, label }) => (
             <Link key={href} href={href} className="text-sm font-medium text-ink-dim transition hover:text-gold-500">
               {label}

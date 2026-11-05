@@ -26,22 +26,57 @@ export function HeroMedia() {
   );
 }
 
+function playFilm(video: HTMLVideoElement) {
+  if (!video.hasAttribute("src")) {
+    video.src = window.matchMedia(HERO_MOBILE_MEDIA_QUERY).matches
+      ? HERO_VIDEO_SRC_MOBILE
+      : HERO_VIDEO_SRC;
+  }
+  if (video.paused) void video.play().catch(() => {});
+}
+
 function FilmPlayer() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const isVisible = useRef(false);
+  const pausedByVisitor = useRef(false);
   const [hasFrame, setHasFrame] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    video.src = window.matchMedia(HERO_MOBILE_MEDIA_QUERY).matches
-      ? HERO_VIDEO_SRC_MOBILE
-      : HERO_VIDEO_SRC;
+    if (failed || !video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     video.muted = true;
-    void video.play().catch(() => {});
-  }, []);
+
+    function syncPlayback() {
+      if (!video) return;
+      if (isVisible.current && !document.hidden && !pausedByVisitor.current) {
+        playFilm(video);
+      } else if (!video.paused) {
+        video.pause();
+      }
+    }
+
+    const observer = typeof IntersectionObserver === "undefined"
+      ? null
+      : new IntersectionObserver(([entry]) => {
+        isVisible.current = entry.isIntersecting;
+        syncPlayback();
+      });
+
+    if (observer) {
+      observer.observe(video);
+    } else {
+      isVisible.current = true;
+      syncPlayback();
+    }
+
+    document.addEventListener("visibilitychange", syncPlayback);
+    return () => {
+      observer?.disconnect();
+      document.removeEventListener("visibilitychange", syncPlayback);
+    };
+  }, [failed]);
 
   if (failed) return null;
 
@@ -49,10 +84,11 @@ function FilmPlayer() {
     const video = videoRef.current;
     if (!video) return;
 
-    if (video.paused) {
-      void video.play().catch(() => {});
-    } else {
+    pausedByVisitor.current = !video.paused;
+    if (pausedByVisitor.current) {
       video.pause();
+    } else {
+      playFilm(video);
     }
   }
 
@@ -60,7 +96,7 @@ function FilmPlayer() {
     const video = videoRef.current;
     if (video?.getAttribute("src") === HERO_VIDEO_SRC_MOBILE) {
       video.src = HERO_VIDEO_SRC;
-      void video.play().catch(() => {});
+      if (isVisible.current && !document.hidden && !pausedByVisitor.current) playFilm(video);
     } else {
       setFailed(true);
     }
