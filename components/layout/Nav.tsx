@@ -13,6 +13,7 @@ const LINKS = [
   { href: "/#packages", label: "Packages" },
   { href: "/#process", label: "Process" },
   { href: "/#technology", label: "Technology" },
+  { href: "https://crm.openhousefx.com/test-environment/", label: "CRM & Demo" },
 ];
 
 export function Nav() {

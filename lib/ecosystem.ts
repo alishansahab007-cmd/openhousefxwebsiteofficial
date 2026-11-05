@@ -45,7 +45,8 @@ export const ECOSYSTEM_PRODUCTS: readonly EcosystemProduct[] = [
       "Team operations and workspace tools",
     ],
     status: "Product Preview",
-    note: "Workspace access and availability can vary.",
+    note: "Explore instantly without signing in, or verify your email for a private five-day trial.",
+    action: { label: "Explore AlphaCompanion", href: "https://crm.openhousefx.com/test-environment/" },
     icon: "operations",
     screenshots: [
       { label: "Overview", src: `${MEDIA}/alphacompanion-overview.webp`, alt: "AlphaCompanion overview with property and CRM navigation and a team workspace summary" },
