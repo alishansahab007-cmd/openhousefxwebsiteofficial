@@ -25,6 +25,7 @@ export type EcosystemProduct = {
     details?: readonly string[];
   };
   action?: { label: string; href: string };
+  secondaryAction?: { label: string; href: string };
 };
 
 const MEDIA = "/media/ecosystem";
@@ -64,9 +65,9 @@ export const ECOSYSTEM_PRODUCTS: readonly EcosystemProduct[] = [
     name: "Pocket Studio",
     category: "Creative property media production",
     area: "Creative production",
-    headline: "Your next listing. Beautifully presented.",
+    headline: "Creative property media, beautifully connected.",
     summary: "Turn authorized listing media into assets for a more complete presentation.",
-    description: "An evolving workspace for creative property media. OpenhouseFX already offers post-production services, and the studio roadmap includes more tools for refining the work.",
+    description: "Explore property media packages, cinematic photo-motion, virtual transformations, and the evolving OpenhouseFX creative workspace.",
     features: [
       "Cinematic presentations from authorized listing photos",
       "Virtual staging and twilight services",
@@ -84,7 +85,8 @@ export const ECOSYSTEM_PRODUCTS: readonly EcosystemProduct[] = [
       stages: ["Authorized listing photos", "Creative production", "Media deliverables"],
       details: ["Enhanced photography", "Photo-motion video", "Virtual staging", "Virtual twilight", "Social Reels"],
     },
-    action: { label: "Explore available media services", href: "/#services" },
+    action: { label: "Explore Pocket Studio", href: "https://openhousefx-pocket-studio.onrender.com/?package=Essential+Listing+Kit&view=staging#packages" },
+    secondaryAction: { label: "Enter Production Studio", href: "https://openhousefx-pocket-studio.onrender.com/studio" },
   },
   {
     id: "lead-verifier",
