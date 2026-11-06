@@ -34,6 +34,7 @@ export function ProductSpotlight({ product, active }: { product: EcosystemProduc
           {product.action?.label ?? (screenshot ? "See the illustrative workflow" : "See the conceptual workflow")}
           <span aria-hidden="true">↗</span>
         </Link>
+        {product.secondaryAction && <Link className={styles.textAction} href={product.secondaryAction.href}>{product.secondaryAction.label}<span aria-hidden="true">↗</span></Link>}
       </div>
       {active ? (
         <div className={styles.productVisual}>
