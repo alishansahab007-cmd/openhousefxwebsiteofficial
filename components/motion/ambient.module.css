@@ -1,0 +1,38 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  contain: paint;
+}
+
+.field { position: absolute; inset: -2.5rem; }
+.field > span { position: absolute; pointer-events: none; animation-play-state: paused; }
+.blue { inset: 0; background: radial-gradient(ellipse at 12% 30%, #244b6e47, transparent 58%); animation: blue-drift 23s ease-in-out infinite alternate; }
+.gold { inset: 0; background: radial-gradient(ellipse at 89% 45%, #d4af3714, transparent 43%); animation: gold-drift 19s -8s ease-in-out infinite alternate; }
+.slate { inset: 0; background: radial-gradient(ellipse at 55% 85%, #77a9bd12, transparent 48%); animation: slate-drift 25s -12s ease-in-out infinite alternate; }
+.layer[data-ambient-active="true"] .field > span { animation-play-state: running; }
+
+.layer[data-ambient-layer="media"] { z-index: 0; opacity: 0.65; }
+.layer[data-ambient-layer="media"] .blue { background: radial-gradient(ellipse at 10% 30%, #244b6e30, transparent 45%); }
+.layer[data-ambient-layer="media"] .gold { background: radial-gradient(ellipse at 96% 55%, #e8c87919, transparent 34%); }
+.layer[data-ambient-layer="orbit"] .gold { background: radial-gradient(ellipse at 50% 45%, #d4af371c, transparent 64%); }
+
+@keyframes blue-drift { to { transform: translate3d(8px, -6px, 0); } }
+@keyframes gold-drift { to { transform: translate3d(-6px, 8px, 0); } }
+@keyframes slate-drift { to { transform: translate3d(5px, 4px, 0); } }
+
+@media (max-width: 767px) {
+  .field { inset: -1.25rem; }
+  .slate { display: none; }
+  .blue, .gold { opacity: 0.75; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field { transform: none !important; }
+  .field > span { animation: none !important; }
+}
+
+:global(html[data-welcome="active"]) .field > span { animation-play-state: paused; }

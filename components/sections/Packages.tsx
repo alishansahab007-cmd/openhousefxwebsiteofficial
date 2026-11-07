@@ -2,10 +2,12 @@ import { PACKAGES } from "@/lib/content";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import { AmbientGradientLayer } from "@/components/motion/AmbientGradientLayer";
 
 export function Packages() {
   return (
-    <section id="packages" className="border-t border-line bg-bg py-24" aria-labelledby="packages-heading">
+    <section id="packages" className="ambient-section border-t border-line bg-bg py-24" aria-labelledby="packages-heading">
+      <AmbientGradientLayer />
       <div className="site-shell">
         <Reveal className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-12">
           <div>
@@ -25,6 +27,7 @@ export function Packages() {
           {PACKAGES.map((pkg, index) => (
             <article
               key={pkg.name}
+              data-featured={pkg.featured || undefined}
               className={`glass-panel interactive-card flex flex-col rounded-md p-5 xl:p-7 ${
                 pkg.featured ? "border-gold-500/55 bg-gold-500/[0.045]" : ""
               }`}

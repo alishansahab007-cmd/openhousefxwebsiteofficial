@@ -73,7 +73,7 @@ function BeforeAfterSlider({ label, description, before, after }: SliderProps) {
     <div>
       <div
         ref={trackRef}
-        className="relative aspect-[16/10] w-full touch-pan-y select-none overflow-hidden rounded-sm border border-line"
+        className="comparison-frame relative aspect-[16/10] w-full touch-pan-y select-none overflow-hidden rounded-sm border border-line"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -168,7 +168,7 @@ interface VideoRevealProps {
 function BeforeAfterVideoReveal({ label, description, poster, videoSrc }: VideoRevealProps) {
   return (
     <div>
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm border border-line">
+      <div className="comparison-frame relative aspect-[16/10] w-full overflow-hidden rounded-sm border border-line">
         <HoverVideoCard poster={poster} videoSrc={videoSrc} label={label} variant="landscape" />
       </div>
 

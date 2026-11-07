@@ -1,0 +1,304 @@
+{
+  "before-desktop-load": {
+    "lcpMs": 592,
+    "cls": 0.00007983755947819031,
+    "blockingFirst5sMs": 430,
+    "maxInteractionMs": 0,
+    "heapMiB": 6.3269758224487305,
+    "scrollSamples": 0,
+    "scrollP50Ms": null,
+    "scrollP95Ms": null,
+    "scrollOver34ms": 0,
+    "jsBytes": 699169,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "ready": true
+  },
+  "after-desktop-load": {
+    "lcpMs": 524,
+    "cls": 0.00007983755947819031,
+    "blockingFirst5sMs": 194,
+    "maxInteractionMs": 0,
+    "heapMiB": 13.11882495880127,
+    "shifts": [
+      {
+        "value": 0.00007983755947819031,
+        "time": 955,
+        "sources": [
+          {
+            "node": "<nav class=\"hidden items-center gap-3 lg:flex lg:gap-7\" aria-label=\"Main navigation\"><a class=\"text-sm font-medium text-ink-dim transition hover:text-gold-500\" href=\"/#work\">Work</a><a class=\"text-sm font-medium text-ink",
+            "before": {
+              "x": 463.01251220703125,
+              "y": 30,
+              "width": 522.4625244140625,
+              "height": 20,
+              "top": 30,
+              "right": 985.4750366210938,
+              "bottom": 50,
+              "left": 463.01251220703125
+            },
+            "after": {
+              "x": 459.9125061035156,
+              "y": 30,
+              "width": 519.9000244140625,
+              "height": 20,
+              "top": 30,
+              "right": 979.8125305175781,
+              "bottom": 50,
+              "left": 459.9125061035156
+            }
+          },
+          {
+            "node": "<p class=\"label absolute right-[var(--site-gutter)] top-9 hidden items-center gap-3 lg:flex\" aria-hidden=\"true\"><span class=\"h-px w-7 bg-gold-500\"></span> 01 / Studio showreel</p>",
+            "before": {
+              "x": 1131.4749755859375,
+              "y": 116.80000305175781,
+              "width": 222.40000915527344,
+              "height": 16.5,
+              "top": 116.80000305175781,
+              "right": 1353.874984741211,
+              "bottom": 133.3000030517578,
+              "left": 1131.4749755859375
+            },
+            "after": {
+              "x": 1141.7125244140625,
+              "y": 116.80000305175781,
+              "width": 211.83750915527344,
+              "height": 16.5,
+              "top": 116.80000305175781,
+              "right": 1353.550033569336,
+              "bottom": 133.3000030517578,
+              "left": 1141.7125244140625
+            }
+          }
+        ]
+      },
+      {
+        "value": 7.05767399620193e-7,
+        "time": 2028.2000000029802,
+        "sources": [
+          {
+            "node": "<svg width=\"13\" height=\"13\" viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\"><path d=\"M6 3v10m4-10v10\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>",
+            "before": {
+              "x": 1258.675048828125,
+              "y": 727.9000244140625,
+              "width": 13,
+              "height": 13,
+              "top": 727.9000244140625,
+              "right": 1271.675048828125,
+              "bottom": 740.9000244140625,
+              "left": 1258.675048828125
+            },
+            "after": {
+              "x": 1253.2000732421875,
+              "y": 727.9000244140625,
+              "width": 13,
+              "height": 13,
+              "top": 727.9000244140625,
+              "right": 1266.2000732421875,
+              "bottom": 740.9000244140625,
+              "left": 1253.2000732421875
+            }
+          }
+        ]
+      }
+    ],
+    "scrollSamples": 0,
+    "scrollP50Ms": null,
+    "scrollP95Ms": null,
+    "scrollOver34ms": 0,
+    "jsBytes": 715383,
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "ready": true
+  },
+  "before-mobile-load": {
+    "lcpMs": 492,
+    "cls": 0.01823018053362039,
+    "blockingFirst5sMs": 553,
+    "maxInteractionMs": 0,
+    "heapMiB": 5.424447059631348,
+    "scrollSamples": 0,
+    "scrollP50Ms": null,
+    "scrollP95Ms": null,
+    "scrollOver34ms": 0,
+    "jsBytes": 699169,
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "ready": true
+  },
+  "after-mobile-load": {
+    "lcpMs": 692,
+    "cls": 0.01823018053362039,
+    "blockingFirst5sMs": 9,
+    "maxInteractionMs": 0,
+    "heapMiB": 7.0753326416015625,
+    "shifts": [
+      {
+        "value": 0.01823018053362039,
+        "time": 693.7999999970198,
+        "sources": [
+          {
+            "node": "<p class=\"hero-description text-ink-dim\">From enhanced photography to cinematic films and immersive walkthroughs, give buyers a fuller picture of the property before they arrive.</p>",
+            "before": {
+              "x": 19.200000762939453,
+              "y": 545.9000244140625,
+              "width": 336,
+              "height": 108.80000305175781,
+              "top": 545.9000244140625,
+              "right": 355.20000076293945,
+              "bottom": 654.7000274658203,
+              "left": 19.200000762939453
+            },
+            "after": {
+              "x": 19.200000762939453,
+              "y": 503.13751220703125,
+              "width": 336,
+              "height": 108.80000305175781,
+              "top": 503.13751220703125,
+              "right": 355.20000076293945,
+              "bottom": 611.9375152587891,
+              "left": 19.200000762939453
+            }
+          },
+          {
+            "node": "<div class=\"mt-8 flex flex-wrap gap-3 md:mt-10\"><a data-variant=\"primary\" class=\"liquid-button group inline-flex min-h-12 items-center justify-center gap-3 rounded-sm border px-5 py-3 text-sm font-semibold sm:px-6 border",
+            "before": {
+              "x": 20,
+              "y": 686.7000122070312,
+              "width": 335.20001220703125,
+              "height": 108,
+              "top": 686.7000122070312,
+              "right": 355.20001220703125,
+              "bottom": 794.7000122070312,
+              "left": 20
+            },
+            "after": {
+              "x": 20,
+              "y": 643.9375,
+              "width": 335.20001220703125,
+              "height": 108,
+              "top": 643.9375,
+              "right": 355.20001220703125,
+              "bottom": 751.9375,
+              "left": 20
+            }
+          },
+          {
+            "node": "<section id=\"problem\" class=\"border-t border-line bg-bg py-24 md:py-32\"><div class=\"mx-auto max-w-7xl px-6 md:px-14\"><div><p class=\"label \">The Problem</p><h2 class=\"font-display mt-4 max-w-2xl text-3xl font-semibold lea",
+            "before": {
+              "x": 0,
+              "y": 843.5,
+              "width": 375.20001220703125,
+              "height": 0.5,
+              "top": 843.5,
+              "right": 375.20001220703125,
+              "bottom": 844,
+              "left": 0
+            },
+            "after": {
+              "x": 0,
+              "y": 800.7374877929688,
+              "width": 375.20001220703125,
+              "height": 43.26250076293945,
+              "top": 800.7374877929688,
+              "right": 375.20001220703125,
+              "bottom": 843.9999885559082,
+              "left": 0
+            }
+          }
+        ]
+      },
+      {
+        "value": 0.000005126171502210044,
+        "time": 2007.6000000089407,
+        "sources": [
+          {
+            "node": "<svg width=\"13\" height=\"13\" viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\"><path d=\"M6 3v10m4-10v10\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>",
+            "before": {
+              "x": 260.32501220703125,
+              "y": 104.30000305175781,
+              "width": 13,
+              "height": 13,
+              "top": 104.30000305175781,
+              "right": 273.32501220703125,
+              "bottom": 117.30000305175781,
+              "left": 260.32501220703125
+            },
+            "after": {
+              "x": 254.85000610351562,
+              "y": 104.30000305175781,
+              "width": 13,
+              "height": 13,
+              "top": 104.30000305175781,
+              "right": 267.8500061035156,
+              "bottom": 117.30000305175781,
+              "left": 254.85000610351562
+            }
+          }
+        ]
+      }
+    ],
+    "scrollSamples": 0,
+    "scrollP50Ms": null,
+    "scrollP95Ms": null,
+    "scrollOver34ms": 0,
+    "jsBytes": 715383,
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "ready": true
+  },
+  "responsive": [
+    {
+      "cardOverflows": 0,
+      "menuVisible": true,
+      "scrollWidth": 305,
+      "width": 305
+    },
+    {
+      "cardOverflows": 0,
+      "menuVisible": true,
+      "scrollWidth": 360,
+      "width": 360
+    },
+    {
+      "cardOverflows": 0,
+      "menuVisible": true,
+      "scrollWidth": 375,
+      "width": 375
+    },
+    {
+      "cardOverflows": 0,
+      "menuVisible": true,
+      "scrollWidth": 753,
+      "width": 753
+    },
+    {
+      "cardOverflows": 0,
+      "menuVisible": false,
+      "scrollWidth": 1009,
+      "width": 1009
+    },
+    {
+      "cardOverflows": 0,
+      "menuVisible": false,
+      "scrollWidth": 1425,
+      "width": 1425
+    },
+    {
+      "cardOverflows": 0,
+      "menuVisible": false,
+      "scrollWidth": 1905,
+      "width": 1905
+    }
+  ],
+  "method": "Single-run local production-mode observations through a loopback measurement proxy. Baseline commit 6bf59d2. LCP/CLS are lab observations; blockingFirst5sMs is a custom long-task metric, not Lighthouse TBT. Heap snapshots are uncontrolled, not peak-memory benchmarks. No field INP or reliable scroll-FPS result is claimed."
+}

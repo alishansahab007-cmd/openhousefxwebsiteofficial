@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/Button";
 import { HeroMedia } from "./HeroMedia";
+import { AmbientGradientLayer } from "@/components/motion/AmbientGradientLayer";
 
 export function CinematicHero() {
   return (
     <section className="property-hero relative isolate overflow-hidden border-b border-line bg-bg" aria-labelledby="hero-heading">
       <HeroMedia />
       <div className="hero-shade pointer-events-none absolute inset-0" aria-hidden="true" />
+      <AmbientGradientLayer variant="media" />
       <div className="site-shell hero-content relative z-10">
         <p className="label editorial-label">Property media studio</p>
         <h1 id="hero-heading" className="hero-title font-display">
