@@ -2,10 +2,12 @@ import { SERVICES } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ServiceMedia } from "@/components/services/ServiceMedia";
+import { AmbientGradientLayer } from "@/components/motion/AmbientGradientLayer";
 
 export function Services() {
   return (
-    <section id="services" className="border-t border-line bg-bg py-24">
+    <section id="services" className="ambient-section border-t border-line bg-bg py-24">
+      <AmbientGradientLayer />
       <div className="site-shell">
         <Reveal className="max-w-2xl">
           <SectionLabel className="editorial-label">Studio services</SectionLabel>
@@ -29,7 +31,7 @@ export function Services() {
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/35 to-transparent" />
               </div>
               <div className="px-6 py-8">
-                <p className="font-display text-sm text-gold-500">{service.number}</p>
+                <p className="light-marker w-fit font-display text-sm text-gold-500">{service.number}</p>
                 <h3 className="font-display mt-4 text-lg font-semibold text-ink">
                   {service.name}
                 </h3>

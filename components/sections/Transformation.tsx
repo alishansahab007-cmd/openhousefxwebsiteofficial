@@ -9,6 +9,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ServiceMedia } from "@/components/services/ServiceMedia";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { AmbientGradientLayer } from "@/components/motion/AmbientGradientLayer";
 
 const ShowcaseTelemetry = dynamic(
   () => import("./ShowcaseTelemetry").then((module) => module.ShowcaseTelemetry),
@@ -73,7 +74,7 @@ export function Transformation() {
 
   return (
     <section id="work" className="showcase-section relative isolate overflow-hidden border-t border-line py-24" aria-labelledby="work-heading">
-      <div className="showcase-ambient pointer-events-none absolute inset-0" aria-hidden="true" />
+      <AmbientGradientLayer />
       <div className="site-shell relative">
         <Reveal className="mx-auto max-w-3xl text-center" y={30} stiffness={70}>
           <SectionLabel className="editorial-label justify-center">{TRANSFORMATION.kicker}</SectionLabel>

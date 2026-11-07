@@ -18,7 +18,7 @@ export function InteractiveExperience() {
         </Reveal>
 
         <Reveal>
-          <CanvasGate className="w-full overflow-hidden rounded-sm border border-line" />
+          <CanvasGate className="comparison-frame w-full overflow-hidden rounded-sm border border-line" />
         </Reveal>
       </div>
     </section>

@@ -17,7 +17,7 @@ export function ProductSpotlight({ product, active }: { product: EcosystemProduc
     <div className={styles.spotlight} data-accent={product.icon}>
       <div className={styles.productCopy}>
         <div className={styles.productTopline}>
-          <span className={styles.glyph}><ProductGlyph icon={product.icon} /></span>
+          <span className={`${styles.glyph} light-marker`}><ProductGlyph icon={product.icon} /></span>
           <span className={styles.status}>{product.status}</span>
         </div>
         <div>

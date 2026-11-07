@@ -3,15 +3,17 @@ import { MEDIA } from "@/lib/media";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { CinematicFooterVideo } from "./CinematicFooterVideo";
+import { AmbientGradientLayer } from "@/components/motion/AmbientGradientLayer";
 
 export function FinalCta() {
   return (
-    <section id="start" className="relative overflow-hidden border-t border-line py-28 md:py-36">
+    <section id="start" className="relative isolate overflow-hidden border-t border-line py-28 md:py-36">
       <CinematicFooterVideo
         poster={MEDIA.listingExteriorTwilight}
         videoSrc="/media/services/cinematic-films.mp4"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/85 to-bg/70" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg via-bg/85 to-bg/70" aria-hidden="true" />
+      <AmbientGradientLayer variant="media" />
 
       <div className="relative mx-auto max-w-3xl px-6 text-center md:px-14">
         <Reveal>

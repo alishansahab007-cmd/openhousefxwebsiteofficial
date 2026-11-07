@@ -2,10 +2,12 @@ import Image from "next/image";
 import { FOR_TEAMS } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { AmbientGradientLayer } from "@/components/motion/AmbientGradientLayer";
 
 export function ForTeams() {
   return (
-    <section className="border-t border-line bg-bg py-24 md:py-32">
+    <section className="ambient-section border-t border-line bg-bg py-24 md:py-32">
+      <AmbientGradientLayer />
       <div className="mx-auto max-w-7xl px-6 md:px-14">
         <Reveal className="max-w-2xl">
           <SectionLabel>Agents, Teams &amp; Brokerages</SectionLabel>
@@ -21,7 +23,7 @@ export function ForTeams() {
           {FOR_TEAMS.map((row) => (
             <div
               key={row.segment}
-              className="glass-panel overflow-hidden rounded-md"
+              className="glass-panel interactive-card overflow-hidden rounded-md"
             >
               <div className="relative aspect-[4/3] w-full">
                 <Image

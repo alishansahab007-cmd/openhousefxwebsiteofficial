@@ -8,6 +8,7 @@ import { MEDIA } from "@/lib/media";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { ProductGlyph } from "./ProductGlyph";
 import styles from "./orbital.module.css";
+import { AmbientGradientLayer } from "@/components/motion/AmbientGradientLayer";
 
 const GEOMETRY = {
   size: 1000,
@@ -66,6 +67,7 @@ export function EcosystemOrbitalWheel({ selected, onSelect }: { selected: number
       data-visible={visible}
       aria-label="OpenhouseFX orbital ecosystem selector"
     >
+      <AmbientGradientLayer variant="orbit" />
       <figcaption className={styles.caption}>
         <span>Technology ecosystem vision</span>
         <span className={styles.edition} aria-hidden="true">01—04</span>
@@ -175,7 +177,7 @@ export function EcosystemOrbitalWheel({ selected, onSelect }: { selected: number
                 onBlur={() => setFocused(null)}
                 onClick={() => onSelect(index)}
               >
-                <span className={styles.nodeIcon}><ProductGlyph icon={product.icon} /></span>
+                <span className={`${styles.nodeIcon} light-marker`}><ProductGlyph icon={product.icon} /></span>
                 <span className={styles.nodeName}>{product.name}</span>
                 <span className={styles.nodeCategory}>{product.area}</span>
                 <span className={styles.nodeState}>{selected === index ? "Selected" : "Explore"} <span aria-hidden="true">↗</span></span>
