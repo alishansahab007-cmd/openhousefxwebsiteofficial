@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { NavigationLink, PolicyArrival } from "@/components/ui/NavigationLink";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 
@@ -12,13 +12,13 @@ export function PolicyPage({ title, sections }: PolicyPageProps) {
     <>
       <Nav />
       <main className="site-shell py-16 md:py-24">
-        <article className="mx-auto max-w-3xl">
+        <PolicyArrival key={title}>
           <p className="label">OpenHouseFX · Last updated November 9, 2026</p>
-          <h1 className="editorial-heading mt-5">{title}</h1>
+          <h1 tabIndex={-1} className="editorial-heading mt-5">{title}</h1>
           <nav aria-label="Policy navigation" className="my-8 flex flex-wrap gap-5 text-sm text-gold-300">
-            <Link href="/privacy-policy">Privacy Policy</Link>
-            <Link href="/terms-and-conditions">Terms and Conditions</Link>
-            <Link href="/sms-terms">SMS Terms</Link>
+            <NavigationLink href="/privacy-policy">Privacy Policy</NavigationLink>
+            <NavigationLink href="/terms-and-conditions">Terms and Conditions</NavigationLink>
+            <NavigationLink href="/sms-terms">SMS Terms</NavigationLink>
           </nav>
           {sections.map(([heading, body], index) => (
             <section key={heading} className="mt-8">
@@ -34,7 +34,7 @@ export function PolicyPage({ title, sections }: PolicyPageProps) {
               <a href="tel:+18888150017">(888) 815-0017</a>
             </address>
           </section>
-        </article>
+        </PolicyArrival>
       </main>
       <Footer />
     </>
