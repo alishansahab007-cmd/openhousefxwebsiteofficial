@@ -18,6 +18,7 @@ interface FormValues {
   // Honeypot: real visitors never see or fill this field. Any value here
   // marks the submission as a bot and it is dropped server-side.
   website: string;
+  smsConsent: boolean;
 }
 
 const INITIAL_VALUES: FormValues = {
@@ -28,6 +29,7 @@ const INITIAL_VALUES: FormValues = {
   listingUrl: "",
   services: [],
   website: "",
+  smsConsent: false,
 };
 
 type FieldErrors = Partial<Record<"name" | "email" | "phone", string>>;
@@ -202,6 +204,7 @@ export function StartAListingForm() {
           </div>
         </div>
 
+        <div className="space-y-3 text-sm leading-relaxed text-ink-dim"><label className="flex items-start gap-3"><input type="checkbox" checked={values.smsConsent} onChange={e=>updateField('smsConsent',e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-gold-500"/><span>I agree to receive optional, non-promotional texts from OpenHouseFX about my inquiry, quotations, project updates and support. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. Consent is not a condition of purchase.</span></label><p>Read our <Link href="/privacy-policy" className="text-gold-300 underline">Privacy Policy</Link> and <Link href="/sms-terms" className="text-gold-300 underline">SMS Terms</Link>. You may submit without SMS consent.</p></div>
         <div className="space-y-6">
           <p className="label">Property</p>
 
