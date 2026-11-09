@@ -380,3 +380,161 @@ html[data-welcome="active"] { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   html[data-welcome="active"] { overflow: auto; }
 }
+
+/* ==========================================================================
+   Glass + ambient gradient enhancement (visual-only additions)
+   Overrides only appearance of existing .glass-panel / .glass-quote / icon wrappers.
+   ========================================================================== */
+
+/* Ambient lighting layer: fixed, click-through, very low alpha, palette-matched. */
+.ambient-gradient {
+  position: fixed;
+  inset: -18%;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  contain: layout paint style;
+  background: radial-gradient(ellipse at 50% 0%, rgb(9 25 37 / 26%), transparent 62%);
+  will-change: transform, opacity;
+}
+
+.ambient-gradient i {
+  position: absolute;
+  display: block;
+  width: 55vmax;
+  height: 55vmax;
+  border-radius: 50%;
+  animation: ambient-float 40s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.ambient-gradient i:nth-child(1) {
+  left: 4%;
+  top: 2%;
+  background: radial-gradient(circle, rgb(31 83 183 / 15%), transparent 68%);
+}
+
+.ambient-gradient i:nth-child(2) {
+  right: 2%;
+  top: 30%;
+  background: radial-gradient(circle, rgb(212 175 55 / 9%), transparent 68%);
+  animation-duration: 48s;
+  animation-delay: -12s;
+}
+
+.ambient-gradient i:nth-child(3) {
+  left: 30%;
+  bottom: -4%;
+  background: radial-gradient(circle, rgb(46 125 128 / 12%), transparent 68%);
+  animation-duration: 56s;
+  animation-delay: -24s;
+}
+
+@keyframes ambient-float {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to { transform: translate3d(5%, 4%, 0) scale(1.1); }
+}
+
+@media (max-width: 767px) {
+  .ambient-gradient i { width: 80vmax; height: 80vmax; }
+  .ambient-gradient i:nth-child(3) { display: none; }
+}
+
+/* Glass cards and panels (Services, Packages, How it works, For teams, mobile menu). */
+.glass-panel {
+  background-color: rgb(9 25 37 / 52%);
+  background-image:
+    linear-gradient(160deg, rgb(255 255 255 / 7%) 0%, rgb(255 255 255 / 1.5%) 28%, transparent 55%),
+    radial-gradient(120% 80% at 0% 0%, rgb(232 200 121 / 7%), transparent 55%);
+  border-color: rgb(232 200 121 / 18%);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 9%),
+    inset 0 0 0 1px rgb(255 255 255 / 2%),
+    0 12px 32px -12px rgb(0 0 0 / 55%);
+  transition-property: translate, border-color, background-color, box-shadow;
+  transition-duration: 300ms;
+}
+
+.glass-panel:focus-within {
+  border-color: rgb(232 200 121 / 40%);
+  background-color: rgb(12 30 46 / 58%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 14%),
+    inset 0 0 0 1px rgb(255 255 255 / 3%),
+    0 16px 38px -12px rgb(0 0 0 / 60%),
+    0 0 28px -8px rgb(212 175 55 / 22%);
+}
+
+/* Keep the original interactive-card hover border colour (same value as before). */
+.interactive-card:hover,
+.interactive-card:focus-within {
+  border-color: rgb(212 175 55 / 70%);
+}
+
+/* Navigation surfaces. */
+#site-content > header {
+  background-color: rgb(3 7 18 / 58%);
+  border-bottom-color: rgb(232 200 121 / 14%);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 5%), 0 10px 30px -18px rgb(0 0 0 / 70%);
+}
+
+/* The dropdown sits outside the header's backdrop, so keep it opaque enough to read. */
+#mobile-menu.glass-panel {
+  background-color: rgb(6 12 26 / 92%);
+}
+
+/* Glass buttons: refined hover highlight (existing gold glow kept). */
+@media (hover: hover) {
+  .glass-quote:hover {
+    box-shadow:
+      inset 0 1px 1px rgb(255 255 255 / 16%),
+      0 0 22px rgb(212 175 55 / 26%),
+      0 10px 26px rgb(0 0 0 / 40%);
+  }
+}
+
+/* Faint floating light behind icons (service/ecosystem/footer icon wrappers). */
+:is([class*="glyph" i], [class*="nodeIcon"], [class*="contactIcon"]) {
+  position: relative;
+  isolation: isolate;
+}
+
+:is([class*="glyph" i], [class*="nodeIcon"], [class*="contactIcon"])::before {
+  content: "";
+  position: absolute;
+  inset: -55%;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgb(232 200 121 / 20%) 0%, rgb(63 111 200 / 12%) 42%, transparent 70%);
+  opacity: 0.55;
+  animation: icon-halo 11s ease-in-out infinite alternate;
+  transition: opacity 500ms ease;
+}
+
+.glass-panel:hover :is([class*="glyph" i], [class*="nodeIcon"], [class*="contactIcon"])::before,
+:is([class*="glyph" i], [class*="nodeIcon"], [class*="contactIcon"]):hover::before {
+  opacity: 0.95;
+}
+
+@keyframes icon-halo {
+  from { transform: translate3d(-6%, -4%, 0) scale(0.92); }
+  to { transform: translate3d(6%, 4%, 0) scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-gradient i,
+  :is([class*="glyph" i], [class*="nodeIcon"], [class*="contactIcon"])::before {
+    animation: none;
+  }
+}
+
+.ambient-gradient[data-paused='true'] i { animation-play-state: paused; }
+@supports not (backdrop-filter: blur(14px)) { .glass-panel { background-color: #091925; } }
+@media (max-width: 767px) { .glass-panel { backdrop-filter: none; -webkit-backdrop-filter: none; background-color: #091925eb; } }
+
+@media (hover: hover) { .glass-panel:hover { border-color: rgb(232 200 121 / 40%); background-color: rgb(12 30 46 / 58%); box-shadow: inset 0 1px 0 #ffffff24, 0 16px 38px -12px #0009, 0 0 28px -8px #d4af3738; } }
