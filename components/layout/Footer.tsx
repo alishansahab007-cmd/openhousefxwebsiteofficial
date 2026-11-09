@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { NavigationLink } from "@/components/ui/NavigationLink";
 import { FOOTER } from "@/lib/content";
 import { MEDIA } from "@/lib/media";
 import { Reveal } from "@/components/ui/Reveal";
@@ -99,9 +99,7 @@ export function Footer() {
 
         <div className={styles.bottom}>
           <nav aria-label="Footer navigation" className={styles.navigation}>
-            {LINKS.map((link) => link.href.includes("#")
-              ? <a key={link.href} href={link.href}>{link.label}</a>
-              : <Link key={link.href} href={link.href}>{link.label}</Link>)}
+            {LINKS.map((link) => <NavigationLink key={link.href} href={link.href}>{link.label}</NavigationLink>)}
           </nav>
           <div className={styles.closing}>
             <p>© {new Date().getFullYear()} OpenHouseFX. All rights reserved.</p>

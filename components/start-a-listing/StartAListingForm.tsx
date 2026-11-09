@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { NavigationLink } from "@/components/ui/NavigationLink";
 import { useId, useState, type FormEvent } from "react";
 import { LEAD_SERVICE_OPTIONS } from "@/lib/lead-form";
 
@@ -204,7 +205,7 @@ export function StartAListingForm() {
           </div>
         </div>
 
-        <div className="space-y-3 text-sm leading-relaxed text-ink-dim"><label className="flex items-start gap-3"><input type="checkbox" checked={values.smsConsent} onChange={e=>updateField('smsConsent',e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-gold-500"/><span>I agree to receive optional, non-promotional texts from OpenHouseFX about my inquiry, quotations, project updates and support. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. Consent is not a condition of purchase.</span></label><p>Read our <Link href="/privacy-policy" className="text-gold-300 underline">Privacy Policy</Link> and <Link href="/sms-terms" className="text-gold-300 underline">SMS Terms</Link>. You may submit without SMS consent.</p></div>
+        <div className="space-y-3 text-sm leading-relaxed text-ink-dim"><label className="flex items-start gap-3"><input type="checkbox" checked={values.smsConsent} onChange={e=>updateField('smsConsent',e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-gold-500"/><span>I agree to receive optional, non-promotional texts from OpenHouseFX about my inquiry, quotations, project updates and support. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance. Consent is not a condition of purchase.</span></label><p>Read our <NavigationLink href="/privacy-policy" className="text-gold-300 underline">Privacy Policy</NavigationLink> and <NavigationLink href="/sms-terms" className="text-gold-300 underline">SMS Terms</NavigationLink>. You may submit without SMS consent.</p></div>
         <div className="space-y-6">
           <p className="label">Property</p>
 

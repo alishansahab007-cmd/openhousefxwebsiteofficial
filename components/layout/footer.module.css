@@ -62,6 +62,10 @@
 .navigation { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0 1.6rem; }
 .navigation a { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--footer-muted); font-size: 0.66rem; font-weight: 550; letter-spacing: 0.14em; text-transform: uppercase; }
 .navigation a:hover, .social a:hover { color: var(--footer-gold); }
+.navigation a { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.45em; transition: color 240ms ease, text-decoration-color 240ms ease; }
+.navigation a:hover, .navigation a:focus-visible { color: var(--footer-gold); text-decoration-color: currentColor; }
+.navigation a:focus-visible, .social a:focus-visible { outline: 2px solid var(--footer-gold); outline-offset: 4px; }
+.navigation a:active { color: var(--footer-text); }
 .closing { display: flex; flex-direction: column-reverse; align-items: center; gap: 1rem; margin-block-start: 1.1rem; text-align: center; }
 .closing > p { color: var(--footer-muted); font-size: 0.75rem; line-height: 1.5; }
 .social { display: flex; gap: 0.35rem; }
