@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { MEDIA } from "@/lib/media";
@@ -50,15 +49,15 @@ export function Nav() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-3 md:flex lg:gap-7" aria-label="Main navigation">
+        <nav className="hidden items-center gap-3 lg:flex lg:gap-7" aria-label="Main navigation">
           {LINKS.map(({ href, label }) => (
-            <Link key={href} href={href} className="text-sm font-medium text-ink-dim transition hover:text-gold-500">
+            <a key={href} href={href} className="text-sm font-medium text-ink-dim transition hover:text-gold-500">
               {label}
-            </Link>
+            </a>
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Button href="/start-a-listing" variant="glass">Request a quote</Button>
         </div>
 
@@ -69,7 +68,7 @@ export function Nav() {
           aria-controls="mobile-menu"
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
-          className="grid h-11 w-11 cursor-pointer place-items-center rounded-sm border border-line text-gold-500 transition duration-300 hover:border-gold-500 hover:bg-bg-raised md:hidden"
+          className="grid h-11 w-11 cursor-pointer place-items-center rounded-sm border border-line text-gold-500 transition duration-300 hover:border-gold-500 hover:bg-bg-raised lg:hidden"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <path d={menuOpen ? "m5 5 10 10M15 5 5 15" : "M3 7h14M3 13h14"} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -81,12 +80,12 @@ export function Nav() {
         id="mobile-menu"
         aria-label="Mobile navigation"
         hidden={!menuOpen}
-        className="glass-panel absolute inset-x-0 top-full border-x-0 px-[var(--site-gutter)] pt-3 pb-5 shadow-xl shadow-slate-950/35 md:hidden"
+        className="glass-panel absolute inset-x-0 top-full border-x-0 px-[var(--site-gutter)] pt-3 pb-5 shadow-xl shadow-slate-950/35 lg:hidden"
       >
         {LINKS.map(({ href, label }) => (
-          <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="flex min-h-11 items-center text-sm font-medium text-ink-dim transition duration-300 hover:text-gold-500">
+          <a key={href} href={href} onClick={() => setMenuOpen(false)} className="flex min-h-11 items-center text-sm font-medium text-ink-dim transition duration-300 hover:text-gold-500">
             {label}
-          </Link>
+          </a>
         ))}
         <Button href="/start-a-listing" variant="glass" onClick={() => setMenuOpen(false)} className="mt-3">
           Request a quote

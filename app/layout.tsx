@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { CinematicWelcome } from "@/components/welcome/CinematicWelcome";
+import { AmbientGradient } from "@/components/effects/AmbientGradient";
 import { WELCOME_BOOTSTRAP } from "@/lib/welcome";
 import "./globals.css";
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head><script dangerouslySetInnerHTML={{ __html: WELCOME_BOOTSTRAP }} /></head>
       <body className="min-h-full bg-bg text-ink">
         <CinematicWelcome />
+        <AmbientGradient />
         <div id="site-content">{children}</div>
       </body>
     </html>

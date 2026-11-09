@@ -6,6 +6,9 @@ import { Reveal } from "@/components/ui/Reveal";
 import styles from "./footer.module.css";
 
 const LINKS = [
+  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/terms-and-conditions", label: "Terms and Conditions" },
+  { href: "/sms-terms", label: "SMS Terms" },
   { href: "/#work", label: "Work" },
   { href: "/#services", label: "Services" },
   { href: "/#process", label: "Process" },
@@ -96,7 +99,9 @@ export function Footer() {
 
         <div className={styles.bottom}>
           <nav aria-label="Footer navigation" className={styles.navigation}>
-            {LINKS.map((link) => <Link key={link.href} href={link.href}>{link.label}</Link>)}
+            {LINKS.map((link) => link.href.includes("#")
+              ? <a key={link.href} href={link.href}>{link.label}</a>
+              : <Link key={link.href} href={link.href}>{link.label}</Link>)}
           </nav>
           <div className={styles.closing}>
             <p>© {new Date().getFullYear()} OpenHouseFX. All rights reserved.</p>

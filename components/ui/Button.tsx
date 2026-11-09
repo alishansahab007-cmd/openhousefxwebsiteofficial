@@ -17,12 +17,14 @@ export function Button({ href, children, variant = "primary", className = "", on
     glass: "glass-liquid-crystal glass-quote text-gold-300",
   };
 
+  // Native fragments also re-anchor when the current URL hash is unchanged.
+  const Destination = href.includes("#") ? "a" : Link;
   return (
-    <Link href={href} onClick={onClick} className={`${base} ${styles[variant]} ${className}`}>
+    <Destination href={href} onClick={onClick} className={`${base} ${styles[variant]} ${className}`}>
       {children}
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
         <path d="M4 12 12 4m-7 0h7v7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-    </Link>
+    </Destination>
   );
 }

@@ -40,6 +40,10 @@ const submissionsByIp = new Map<string, number[]>();
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
+  if (!submissionsByIp.has(ip) && submissionsByIp.size >= 2048) {
+    for (const [key, values] of submissionsByIp) if (values.every(time => now - time >= RATE_LIMIT_WINDOW_MS)) submissionsByIp.delete(key);
+    if (submissionsByIp.size >= 2048) return true;
+  }
   const recent = (submissionsByIp.get(ip) ?? []).filter(
     (t) => now - t < RATE_LIMIT_WINDOW_MS
   );
@@ -67,6 +71,7 @@ interface LeadPayload {
   // Honeypot — must arrive empty. Real users never see this field; only
   // bots that fill every input end up populating it.
   website?: string;
+  smsConsent?: boolean;
 }
 
 function escapeHtml(value: string) {
@@ -97,12 +102,31 @@ export async function POST(request: Request) {
 
   let body: LeadPayload;
   try {
-    body = await request.json();
+    const reader = request.body?.getReader();
+    if (!reader) return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
+    const chunks: Uint8Array[] = [];
+    let size = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      size += value.byteLength;
+      if (size > MAX_BODY_BYTES) { await reader.cancel(); return NextResponse.json({ error: 'Request payload is too large.' }, { status: 413 }); }
+      chunks.push(value);
+    }
+    const bytes = new Uint8Array(size);
+    let offset = 0;
+    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+    body = JSON.parse(new TextDecoder().decode(bytes));
   } catch {
     return NextResponse.json(
       { error: "Invalid request body." },
       { status: 400 }
     );
+  }
+
+  if (!body || typeof body !== "object" || Array.isArray(body) ||
+      [body.name, body.email, body.phone, body.address, body.listingUrl, body.website].some(value => value !== undefined && typeof value !== "string")) {
+    return NextResponse.json({ error: "Invalid field types." }, { status: 400 });
   }
 
   // Honeypot check — if the hidden field has any value, this is a bot.
@@ -112,6 +136,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   }
 
+  if (body.smsConsent !== undefined && typeof body.smsConsent !== 'boolean') return NextResponse.json({ error: 'Invalid SMS consent.' }, { status: 400 });
   const name = (body.name ?? "").trim();
   const email = (body.email ?? "").trim();
   const phone = (body.phone ?? "").trim();
@@ -177,10 +202,12 @@ export async function POST(request: Request) {
     `Property Address: ${address || "—"}`,
     `Zillow / MLS URL: ${listingUrl || "—"}`,
     `Services Requested: ${servicesList}`,
+    `SMS consent: ${body.smsConsent === true ? "Opted in" : "Not opted in"}; disclosure version 2026-11-09; received ${new Date().toISOString()}`,
   ].join("\n");
 
   const htmlBody = `
     <h2>NEW OPENHOUSEFX LEAD</h2>
+    <p>SMS consent: ${body.smsConsent === true ? "Opted in" : "Not opted in"} (disclosure version 2026-11-09)</p>
     <p>
       <strong>Name:</strong> ${escapeHtml(name)}<br />
       <strong>Email:</strong> ${escapeHtml(email)}<br />
