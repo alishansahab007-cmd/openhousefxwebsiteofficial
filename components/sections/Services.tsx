@@ -22,7 +22,7 @@ export function Services() {
           {SERVICES.map((service) => (
             <div
               key={service.number}
-              className="glass-panel interactive-card group overflow-hidden rounded-md"
+              className="glass-panel interactive-card glass-track group overflow-hidden rounded-md"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <ServiceMedia service={service} />
