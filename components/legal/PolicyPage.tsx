@@ -13,7 +13,7 @@ export function PolicyPage({ title, sections }: PolicyPageProps) {
       <Nav />
       <main className="site-shell py-16 md:py-24">
         <PolicyArrival key={title}>
-          <p className="label">OpenHouseFX · Last updated November 9, 2026</p>
+          <p className="label">OpenHouseFX · Last updated November 12, 2026</p>
           <h1 tabIndex={-1} className="editorial-heading mt-5">{title}</h1>
           <nav aria-label="Policy navigation" className="my-8 flex flex-wrap gap-5 text-sm text-gold-300">
             <NavigationLink href="/privacy-policy">Privacy Policy</NavigationLink>
@@ -29,6 +29,7 @@ export function PolicyPage({ title, sections }: PolicyPageProps) {
           <section className="mt-10 border-t border-line pt-8">
             <h2 className="text-xl font-semibold">Contact OpenHouseFX</h2>
             <address className="mt-3 not-italic leading-relaxed text-ink-dim">
+              OpenHouseFX, a brand of Savology Hub LLC<br />
               95 Bristol Street, 1D, Waterbury, CT 06708-4969, United States<br />
               <a href="mailto:info@openhousefx.com">info@openhousefx.com</a><br />
               <a href="tel:+18888150017">(888) 815-0017</a>

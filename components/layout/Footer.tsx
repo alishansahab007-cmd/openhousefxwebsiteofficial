@@ -102,7 +102,7 @@ export function Footer() {
             {LINKS.map((link) => <NavigationLink key={link.href} href={link.href}>{link.label}</NavigationLink>)}
           </nav>
           <div className={styles.closing}>
-            <p>© {new Date().getFullYear()} OpenHouseFX. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} OpenHouseFX, a brand of Savology Hub LLC. All rights reserved.</p>
             <nav aria-label="OpenHouseFX social profiles" className={styles.social}>
               {SOCIAL_LINKS.map((link) => (
                 <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label}><FooterIcon icon={link.icon} /></a>
