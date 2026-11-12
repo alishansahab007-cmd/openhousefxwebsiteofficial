@@ -79,7 +79,7 @@ export function Footer() {
 
           <Reveal stagger={0.12} className={styles.cards}>
             {CONTACTS.map((contact) => (
-              <article className={styles.card} key={contact.name}>
+              <article className={`${styles.card} glass-track`} key={contact.name}>
                 <div className={styles.cardTop}>
                   <p className={styles.eyebrow}>{contact.category}</p>
                   <span className={styles.contactIcon}><FooterIcon icon={contact.icon} /></span>

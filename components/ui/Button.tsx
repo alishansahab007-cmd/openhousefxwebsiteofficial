@@ -12,9 +12,9 @@ interface ButtonProps {
 export function Button({ href, children, variant = "primary", className = "", onClick }: ButtonProps) {
   const base = "group inline-flex min-h-12 items-center justify-center gap-3 rounded-sm border px-5 py-3 text-sm font-semibold transition duration-300 sm:px-6";
   const styles = {
-    primary: "border-gold-500 bg-gold-500 text-bg hover:brightness-110",
-    secondary: "border-white/25 bg-bg/45 text-ink hover:border-gold-500 hover:bg-bg-raised",
-    glass: "glass-liquid-crystal glass-quote text-gold-300",
+    primary: "btn-primary border-gold-500 bg-gold-500 text-bg hover:brightness-110",
+    secondary: "btn-secondary border-white/25 bg-bg/45 text-ink hover:border-gold-500 hover:bg-bg-raised",
+    glass: "btn-glass glass-liquid-crystal glass-quote text-gold-300",
   };
 
   // Native fragments also re-anchor when the current URL hash is unchanged.

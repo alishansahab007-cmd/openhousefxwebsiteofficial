@@ -19,6 +19,24 @@ export function Nav() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
+  const header = useRef<HTMLElement>(null);
+
+  // Scroll-adaptive glass: a data attribute toggled only when the threshold is
+  // crossed (no React state, no layout change), read by CSS in globals.css.
+  useEffect(() => {
+    const el = header.current;
+    if (!el) return;
+    let scrolled: boolean | null = null;
+    function update() {
+      const next = window.scrollY > 24;
+      if (next === scrolled) return;
+      scrolled = next;
+      el!.dataset.scrolled = String(next);
+    }
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -35,7 +53,7 @@ export function Nav() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-bg/95 backdrop-blur-md">
+    <header ref={header} className="sticky top-0 z-50 border-b border-line bg-bg/95 backdrop-blur-md">
       <div className="site-shell flex min-h-18 items-center justify-between gap-5 md:min-h-20">
         <a href={pathname === "/" ? "#top" : "/#top"} className="inline-flex items-center gap-3" onClick={() => setMenuOpen(false)}>
           <Image src={MEDIA.logoIcon} alt="" width={36} height={36} className="h-9 w-9" />
@@ -51,7 +69,7 @@ export function Nav() {
 
         <nav className="hidden items-center gap-3 lg:flex lg:gap-7" aria-label="Main navigation">
           {LINKS.map(({ href, label }) => (
-            <a key={href} href={href} className="text-sm font-medium text-ink-dim transition hover:text-gold-500">
+            <a key={href} href={href} className="nav-link text-sm font-medium text-ink-dim transition hover:text-gold-500">
               {label}
             </a>
           ))}

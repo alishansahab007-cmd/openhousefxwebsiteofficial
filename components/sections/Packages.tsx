@@ -25,8 +25,8 @@ export function Packages() {
           {PACKAGES.map((pkg, index) => (
             <article
               key={pkg.name}
-              className={`glass-panel interactive-card flex flex-col rounded-md p-5 xl:p-7 ${
-                pkg.featured ? "border-gold-500/55 bg-gold-500/[0.045]" : ""
+              className={`glass-panel interactive-card glass-track flex flex-col rounded-md p-5 xl:p-7 ${
+                pkg.featured ? "package-featured border-gold-500/55 bg-gold-500/[0.045]" : ""
               }`}
             >
               <p className="label font-medium tabular-nums">0{index + 1} / Collection</p>

@@ -8,7 +8,7 @@ export function EcosystemSection() {
     <section id="technology" className={styles.section} aria-labelledby="technology-heading">
       <div className="site-shell">
         <EcosystemShowcase />
-        <Reveal className={styles.closing}>
+        <Reveal className={`${styles.closing} glass-track`}>
           <div>
             <p className={styles.micro}>OpenhouseFX today and tomorrow</p>
             <h3>Great listings today. <em className="editorial-accent">Smarter real estate tomorrow.</em></h3>
