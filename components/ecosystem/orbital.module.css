@@ -153,8 +153,9 @@
 }
 
 @supports (backdrop-filter: blur(16px)) {
-  .node { background-color: #0d2433d9; backdrop-filter: blur(16px) saturate(130%); }
-  .hub { background-color: #0b202ee8; backdrop-filter: blur(16px) saturate(130%); }
+  /* 85–91% opaque already: the blur behind was invisible, so it is not applied. */
+  .node { background-color: #0d2433ec; }
+  .hub { background-color: #0b202ef2; }
   .node[aria-pressed="true"] { background-color: #1b303be6; }
 }
 

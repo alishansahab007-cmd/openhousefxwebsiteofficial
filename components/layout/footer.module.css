@@ -73,7 +73,7 @@
 .social svg { width: 1.15rem; height: 1.15rem; }
 
 @supports (backdrop-filter: blur(14px)) {
-  .card { background-color: #102738ad; backdrop-filter: blur(14px) saturate(125%); }
+  .card { background-color: #102738c4; }
 }
 
 @media (min-width: 40rem) {

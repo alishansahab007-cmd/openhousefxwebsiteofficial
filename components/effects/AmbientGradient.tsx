@@ -78,7 +78,7 @@ export function AmbientGradient() {
   }, []);
   return (
     <div ref={layer} className="ambient-gradient" aria-hidden="true">
-      <i /><i /><i /><i /><i />
+      <i /><i /><i />
     </div>
   );
 }

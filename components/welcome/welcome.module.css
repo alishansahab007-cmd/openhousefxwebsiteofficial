@@ -88,14 +88,14 @@
 /* One clock, beginning at first paint. The right curtain's animation-end event
    completes the experience; the independent bootstrap timeout is a fail-safe. */
 :global(html[data-welcome="active"]) .brand {
-  animation: brand-enter 550ms cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    brand-exit 250ms 1200ms ease forwards;
+  animation: brand-enter 400ms cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    brand-exit 200ms 750ms ease forwards;
 }
-:global(html[data-welcome="active"]) .tagline { animation: tagline-enter 400ms 650ms ease forwards; }
-:global(html[data-welcome="active"]) .seam { animation: seam-light 400ms 650ms ease forwards; }
-:global(html[data-welcome="active"]) .seam i { animation: seam-sweep 450ms 900ms ease forwards; }
-:global(html[data-welcome="active"]) .left { animation: curtain-left 1100ms 1350ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-:global(html[data-welcome="active"]) .right { animation: curtain-right 1100ms 1350ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+:global(html[data-welcome="active"]) .tagline { animation: tagline-enter 300ms 300ms ease forwards; }
+:global(html[data-welcome="active"]) .seam { animation: seam-light 300ms 300ms ease forwards; }
+:global(html[data-welcome="active"]) .seam i { animation: seam-sweep 350ms 450ms ease forwards; }
+:global(html[data-welcome="active"]) .left { animation: curtain-left 700ms 850ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+:global(html[data-welcome="active"]) .right { animation: curtain-right 700ms 850ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
 @keyframes brand-enter { from { opacity: 0; scale: 0.96; transform: translateY(8px); } to { opacity: 1; scale: 1; transform: translateY(0); } }
 @keyframes brand-exit { from { opacity: 1; } to { opacity: 0; } }

@@ -2,8 +2,8 @@ export const WELCOME = {
   policy: "session" as "session" | "always" | "disabled",
   storageKey: "openhousefx_welcome_v4",
   event: "openhousefx:welcome-finished",
-  sequenceDuration: 2450,
-  maximumDuration: 2800,
+  sequenceDuration: 1550,
+  maximumDuration: 1900,
 };
 
 // Runs before body paint. Native animation events also complete the welcome

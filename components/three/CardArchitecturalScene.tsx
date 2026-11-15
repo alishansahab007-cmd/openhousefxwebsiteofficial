@@ -20,9 +20,9 @@ import { SceneLighting } from "./SceneLighting";
 export function CardArchitecturalScene() {
   return (
     <Canvas
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       camera={{ position: [0, 0, 6], fov: 40 }}
-      gl={{ antialias: true, powerPreference: "high-performance" }}
+      gl={{ antialias: true, powerPreference: "default" }}
     >
       <color attach="background" args={["#071b29"]} />
       <SceneLighting />

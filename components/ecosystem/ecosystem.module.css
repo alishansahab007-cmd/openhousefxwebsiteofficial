@@ -468,7 +468,7 @@
 
 @supports (backdrop-filter: blur(14px)) {
   @media (min-width: 48rem) {
-    .closing { background-color: #0c202eb8; backdrop-filter: blur(14px) saturate(130%); }
+    .closing { background-color: #0c202ee0; }
   }
 }
 
