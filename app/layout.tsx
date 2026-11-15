@@ -4,8 +4,7 @@ import { CinematicWelcome } from "@/components/welcome/CinematicWelcome";
 import { AmbientGradient } from "@/components/effects/AmbientGradient";
 import { GlassPointerLight } from "@/components/effects/GlassPointerLight";
 import { WELCOME_BOOTSTRAP } from "@/lib/welcome";
-import { SITE_URL } from "@/lib/site";
-import { HERO_VIDEO_POSTER } from "@/lib/config/hero";
+import { SITE_URL, pageMetadata } from "@/lib/site";
 import { FOOTER } from "@/lib/content";
 import { MEDIA } from "@/lib/media";
 import "./globals.css";
@@ -28,17 +27,10 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "OpenHouseFX — Real Estate Media & Technology",
-  description,
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    siteName: "OpenHouseFX",
-    title: "OpenHouseFX — Real Estate Media & Technology",
-    description,
-    url: "/",
-    images: [{ url: HERO_VIDEO_POSTER, alt: "A property at twilight from the OpenHouseFX showreel" }],
-  },
+  // Canonical and Open Graph are set per page (see pageMetadata); the root
+  // values here describe the homepage and are never inherited by other routes
+  // because each of them exports its own.
+  ...pageMetadata("/", "OpenHouseFX — Real Estate Media & Technology", description),
   twitter: { card: "summary_large_image" },
 };
 

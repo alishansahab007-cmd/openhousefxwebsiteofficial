@@ -3,13 +3,14 @@ import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { pageMetadata } from "@/lib/site";
 import { StartAListingForm } from "@/components/start-a-listing/StartAListingForm";
 
-export const metadata: Metadata = {
-  title: "Start a Listing — OpenHouseFX",
-  description:
-    "Tell us a little about the property and what you need. We'll take it from there.",
-};
+export const metadata: Metadata = pageMetadata(
+  "/start-a-listing",
+  "Start a Listing — OpenHouseFX",
+  "Tell us a little about the property and what you need. We'll take it from there."
+);
 
 export default function StartAListingPage() {
   return (
