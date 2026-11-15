@@ -229,6 +229,7 @@ export interface ListingPackage {
   /** Who the collection is for, in a few words. */
   bestFor: string;
   description: string;
+  listingLimit: string;
   features: readonly string[];
   /**
    * Approved starting price, e.g. "$249". Leave null until the business
@@ -247,7 +248,12 @@ export const PACKAGES: readonly ListingPackage[] = [
     name: "Essential",
     bestFor: "MLS-ready listings",
     description: "Enhanced photography and a floor plan, ready for MLS.",
-    features: ["Photo enhancement", "Floor plan presentation", "48-hour turnaround"],
+    listingLimit: "1 listing max",
+    features: [
+      "Photo enhancement (up to 10)",
+      "Floor plan presentation",
+      "Video walkthrough (exterior only)",
+    ],
     startingPrice: null,
     turnaround: null,
     featured: false,
@@ -256,10 +262,11 @@ export const PACKAGES: readonly ListingPackage[] = [
     name: "Professional",
     bestFor: "Listings that need to perform",
     description: "The complete package for a listing that needs to perform.",
+    listingLimit: "2 listings max",
     features: [
       "Everything in Essential",
-      "Cinematic property film",
-      "3 social reels",
+      "Cinematic property film (interior + exterior)",
+      "2 social reels per listing",
       "Virtual twilight",
     ],
     startingPrice: null,
@@ -270,11 +277,13 @@ export const PACKAGES: readonly ListingPackage[] = [
     name: "Signature",
     bestFor: "Competitive or luxury listings",
     description: "Full-scale production for competitive or luxury listings.",
+    listingLimit: "Up to 3 listings max",
     features: [
       "Everything in Professional",
-      "Virtual staging (up to 4 rooms)",
-      "Interactive floor plan",
-      "Property landing page",
+      "Cinematic video walkthrough (interior + exterior)",
+      "Virtual staging (up to 5 rooms per property)",
+      "Interactive interior designing",
+      "Virtual twilight (interior + exterior)",
     ],
     startingPrice: null,
     turnaround: null,
@@ -284,10 +293,12 @@ export const PACKAGES: readonly ListingPackage[] = [
     name: "Luxury",
     bestFor: "Flagship properties",
     description: "The full OpenHouseFX system for flagship properties.",
+    listingLimit: "Up to 5 listings; more on demand",
     features: [
       "Everything in Signature",
-      "3D interactive experience",
-      "Extended social content set",
+      "Landing page",
+      "Social media account management",
+      "MLS management",
       "Dedicated producer",
     ],
     startingPrice: null,

@@ -43,3 +43,9 @@ Branch `feat/conversion-homepage-v9`, committed locally, not pushed. `main` depl
 6. Product statuses on `/ecosystem` (three "Product Preview", Scraper Ultra "Planned").
 7. Analytics: none is installed. Proposal before adding one: a cookieless provider, with events for hero CTA, package CTA, successful inquiry, slider use and ecosystem navigation, no personal data in properties.
 8. The Open Graph image is the hero poster (WebP); a 1200×630 JPG would be safer for some platforms.
+
+## Owner revisions — November 15, 2026
+
+- Removed the Essential collection's 48-hour feature promise; turnaround stays unset and pricing stays quote-only.
+- Restored all four homepage sections: Problem, Services grid, Distribution and For Teams. The Services grid owns `#services`; the eight-deliverable showcase now uses `#deliverables`. Before/after proof retains `#work`.
+- Commit `46744bf` supplies per-page canonical URLs, Open Graph URLs and share images. Codex's normal-font production build passed for that commit.

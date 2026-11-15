@@ -11,10 +11,11 @@ import { HowItWorks } from "@/components/sections/HowItWorks";
 import { EcosystemPreview } from "@/components/sections/EcosystemPreview";
 import { FounderMessage } from "@/components/sections/FounderMessage";
 import { FinalCta } from "@/components/sections/FinalCta";
+import { Problem } from "@/components/sections/Problem";
+import { Services } from "@/components/sections/Services";
+import { Distribution } from "@/components/sections/Distribution";
+import { ForTeams } from "@/components/sections/ForTeams";
 
-// The Problem, Services grid, Distribution and ForTeams sections were taken
-// out of this sequence in the V9 conversion pass (their components remain in
-// components/sections). The full ecosystem showcase now lives at /ecosystem.
 export default function Home() {
   return (
     <>
@@ -22,12 +23,16 @@ export default function Home() {
       <main id="top" className="overflow-x-clip">
         <CinematicHero />
         <TrustStrip />
+        <Problem />
         <BeforeAfter />
         <Transformation />
+        <Services />
         <InteractiveExperience />
+        <Distribution />
         <Packages />
         <Testimonials />
         <HowItWorks />
+        <ForTeams />
         <EcosystemPreview />
         <FounderMessage />
         <FinalCta />

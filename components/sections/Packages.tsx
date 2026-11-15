@@ -22,14 +22,14 @@ export function Packages() {
         </Reveal>
 
         <Reveal stagger={0.15} className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-5 xl:gap-8">
-          {PACKAGES.map((pkg) => (
+          {PACKAGES.map((pkg, index) => (
             <article
               key={pkg.name}
               className={`glass-panel interactive-card glass-track flex flex-col rounded-md p-5 xl:p-7 ${
                 pkg.featured ? "package-featured border-gold-500/55 bg-gold-500/[0.045]" : ""
               }`}
             >
-              <p className="label font-medium lg:min-h-9">{pkg.bestFor}</p>
+              <p className="label font-medium tabular-nums">0{index + 1} / Collection</p>
               <h3 className="mt-5 font-display text-2xl font-medium tracking-tight text-ink">{pkg.name}</h3>
               <p className="package-price">
                 {pkg.startingPrice ? (
@@ -42,6 +42,7 @@ export function Packages() {
                 )}
               </p>
               <p className="mt-3 min-h-12 text-sm leading-relaxed text-ink-dim">{pkg.description}</p>
+              <p className="mt-4 text-sm font-semibold text-gold-300">{pkg.listingLimit}</p>
               <ul className="mt-5 flex-1 space-y-2.5 border-t border-line pt-5">
                 {pkg.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2.5 text-sm leading-relaxed text-ink">
@@ -54,7 +55,7 @@ export function Packages() {
                 <p className="mt-5 text-xs leading-relaxed text-ink-dim">Turnaround: {pkg.turnaround}</p>
               ) : null}
               <Button href="/start-a-listing" variant={pkg.featured ? "primary" : "secondary"} className="mt-7 w-full text-center">
-                Get Started
+                Request a quotation
               </Button>
             </article>
           ))}

@@ -72,12 +72,12 @@ export function Transformation() {
   const showCaption = activeService?.kind !== "interactive-3d" && activeService?.kind !== "scroll-mock";
 
   return (
-    <section id="services" className="showcase-section relative isolate overflow-hidden border-t border-line py-24" aria-labelledby="services-heading">
+    <section id="deliverables" className="showcase-section relative isolate overflow-hidden border-t border-line py-24" aria-labelledby="deliverables-heading">
       <div className="showcase-ambient pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="site-shell relative">
         <Reveal className="mx-auto max-w-3xl text-center" y={30} stiffness={70}>
           <SectionLabel className="editorial-label justify-center">{TRANSFORMATION.kicker}</SectionLabel>
-          <h2 id="services-heading" className="editorial-heading mt-5">
+          <h2 id="deliverables-heading" className="editorial-heading mt-5">
             One listing. <em className="editorial-accent">Eight ways to show it.</em>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-ink-dim sm:text-base">
