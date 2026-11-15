@@ -1,4 +1,4 @@
-import { FINAL_CTA } from "@/lib/content";
+import { FINAL_CTA, FOOTER } from "@/lib/content";
 import { MEDIA } from "@/lib/media";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -21,9 +21,14 @@ export function FinalCta() {
           </h2>
           <div className="mt-10 flex justify-center">
             <Button href="/start-a-listing" variant="primary" className="px-10">
-              Request a quotation
+              {FINAL_CTA.cta}
             </Button>
           </div>
+          <p className="mt-6 text-sm text-ink-dim">
+            Prefer to talk it through? Call{" "}
+            <a href={`tel:${FOOTER.telephone}`} className="inline-link">{FOOTER.phone}</a> or email{" "}
+            <a href={`mailto:${FOOTER.email}`} className="inline-link">{FOOTER.email}</a>.
+          </p>
         </Reveal>
       </div>
     </section>

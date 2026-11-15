@@ -10,13 +10,13 @@ export function EcosystemSection() {
         <EcosystemShowcase />
         <Reveal className={`${styles.closing} glass-track`}>
           <div>
-            <p className={styles.micro}>OpenhouseFX today and tomorrow</p>
-            <h3>Great listings today. <em className="editorial-accent">Smarter real estate tomorrow.</em></h3>
-            <p>Explore our real estate technology vision while discovering the property media services already available through OpenhouseFX.</p>
+            <p className={styles.micro}>OpenHouseFX today and tomorrow</p>
+            <h2>Great listings today. <em className="editorial-accent">Smarter real estate tomorrow.</em></h2>
+            <p>Explore our real estate technology vision while discovering the property media services already available through OpenHouseFX.</p>
           </div>
           <div className={styles.closingActions}>
             <Button href="/#services">Explore Our Media Services</Button>
-            <Button href="/#technology-products" variant="secondary">Discover the Ecosystem</Button>
+            <Button href="/ecosystem#technology-products" variant="secondary">Discover the Ecosystem</Button>
           </div>
         </Reveal>
       </div>

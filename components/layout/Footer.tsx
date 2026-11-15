@@ -14,6 +14,7 @@ const LINKS = [
   { href: "/#process", label: "Process" },
   { href: "/#packages", label: "Packages" },
   { href: "/#technology", label: "Technology" },
+  { href: "/ecosystem", label: "Ecosystem" },
 ];
 
 const CONTACTS = [
@@ -21,15 +22,15 @@ const CONTACTS = [
     category: "01 / Customer support",
     name: "Customer Service",
     description: "Questions about our services, pricing, or an upcoming listing? Start here.",
-    phone: "(888) 815-0017",
-    telephone: "+18888150017",
+    phone: FOOTER.phone,
+    telephone: FOOTER.telephone,
     emails: [FOOTER.email],
     icon: "support",
   },
   {
     category: "02 / Client relations",
     name: "Administration",
-    description: "Already working with OpenhouseFX or need to speak with our administration team? Contact us directly.",
+    description: "Already working with OpenHouseFX or need to speak with our administration team? Contact us directly.",
     phone: "(203) 557-7077",
     telephone: "+12035577077",
     emails: ["alishan@openhousefx.com", "wade@openhousefx.com"],
@@ -60,14 +61,6 @@ export function Footer() {
         <Reveal stagger={0.09} className={styles.brand}>
           <Image src={MEDIA.logoLockup} alt="OpenHouseFX" width={960} height={458} sizes="(min-width: 1024px) 260px, (min-width: 640px) 220px, 190px" className={styles.logo} />
           <p className={styles.eyebrow}>{FOOTER.tagline}</p>
-        </Reveal>
-
-        <Reveal className={styles.founder}>
-          <h2 className={styles.eyebrow}>A note from our founder</h2>
-          <blockquote>
-            <p>We built OpenhouseFX with a simple belief: real estate professionals shouldn&apos;t have to juggle endless tools and vendors to bring a listing to life. Our mission is to make property media simpler today, while building the technology for a more connected tomorrow.</p>
-          </blockquote>
-          <span className={styles.signature} aria-hidden="true" />
         </Reveal>
 
         <section className={styles.contact} aria-labelledby="footer-contact-heading">

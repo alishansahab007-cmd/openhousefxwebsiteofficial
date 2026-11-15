@@ -11,7 +11,7 @@ const LINKS = [
   { href: "/#services", label: "Services" },
   { href: "/#packages", label: "Packages" },
   { href: "/#process", label: "Process" },
-  { href: "/#technology", label: "Technology" },
+  { href: "/ecosystem", label: "Ecosystem" },
   { href: "https://crm.openhousefx.com/test-environment/", label: "CRM & Demo" },
 ];
 
@@ -76,7 +76,7 @@ export function Nav() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button href="/start-a-listing" variant="glass">Request a quote</Button>
+          <Button href="/start-a-listing" variant="glass">Enhance Your Listing</Button>
         </div>
 
         <button
@@ -106,7 +106,7 @@ export function Nav() {
           </a>
         ))}
         <Button href="/start-a-listing" variant="glass" onClick={() => setMenuOpen(false)} className="mt-3">
-          Request a quote
+          Enhance Your Listing
         </Button>
       </nav>
     </header>

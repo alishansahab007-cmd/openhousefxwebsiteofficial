@@ -24,7 +24,7 @@
 }
 
 .introCopy { min-width: 0; }
-.introCopy h2 { margin-block-start: 1rem; }
+.introCopy h1 { margin-block-start: 1rem; }
 
 .micro {
   color: var(--technology-accent);
@@ -134,7 +134,7 @@
 
 .productTopline { display: flex; align-items: center; gap: 0.7rem; }
 
-.productCopy h3 {
+.productCopy h2 {
   margin-block-start: 0.28rem;
   font-size: clamp(1.35rem, 2.5vw, 2.15rem);
   font-weight: 620;
@@ -257,7 +257,7 @@
 
 .workflow { padding: clamp(0.75rem, 2vw, 1.15rem); }
 .workflowHeading { margin-block-end: 0.8rem; }
-.workflowHeading h4 { color: var(--color-ink); font-size: clamp(0.84rem, 1.5vw, 1.02rem); font-weight: 620; }
+.workflowHeading h3 { color: var(--color-ink); font-size: clamp(0.84rem, 1.5vw, 1.02rem); font-weight: 620; }
 
 .stages {
   position: relative;
@@ -375,7 +375,7 @@
   background: var(--technology-surface);
 }
 
-.closing h3 {
+.closing h2 {
   margin-block-start: 0.6rem;
   font-size: clamp(1.35rem, 2.65vw, 2.35rem);
   font-weight: 580;
@@ -383,7 +383,7 @@
   line-height: 1.12;
 }
 
-.closing h3 + p { max-width: 55ch; margin-block-start: 0.75rem; color: var(--technology-muted); font-size: 0.88rem; line-height: 1.65; }
+.closing h2 + p { max-width: 55ch; margin-block-start: 0.75rem; color: var(--technology-muted); font-size: 0.88rem; line-height: 1.65; }
 .closingActions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 .closingActions a { text-align: center; }
 

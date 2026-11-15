@@ -22,7 +22,7 @@ export function ProductSpotlight({ product, active }: { product: EcosystemProduc
         </div>
         <div>
           <p className={styles.micro}>{product.category}</p>
-          <h3 id="ecosystem-detail-heading">OpenhouseFX {product.name}</h3>
+          <h2 id="ecosystem-detail-heading">OpenHouseFX {product.name}</h2>
         </div>
         <p className={styles.productHeadline}>{product.headline}</p>
         <p className={styles.productDescription}>{product.description}</p>

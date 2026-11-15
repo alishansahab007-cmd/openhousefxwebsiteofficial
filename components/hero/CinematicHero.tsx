@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/Button";
+import { HERO } from "@/lib/content";
 import { HeroMedia } from "./HeroMedia";
 
 export function CinematicHero() {
@@ -7,18 +8,17 @@ export function CinematicHero() {
       <HeroMedia />
       <div className="hero-shade pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="site-shell hero-content relative z-10">
-        <p className="label editorial-label">Property media studio</p>
+        <p className="label editorial-label">{HERO.eyebrow}</p>
         <h1 id="hero-heading" className="hero-title font-display">
           Make every listing{" "}
           <em className="editorial-accent block">worth a closer look.</em>
         </h1>
         <p className="hero-description text-ink-dim">
-          From enhanced photography to cinematic films and immersive walkthroughs,
-          give buyers a fuller picture of the property before they arrive.
+          {HERO.description}
         </p>
         <div className="mt-8 flex flex-wrap gap-3 md:mt-10">
-          <Button href="/start-a-listing">Request a quotation</Button>
-          <Button href="/#work" variant="secondary">Explore our work</Button>
+          <Button href="/start-a-listing">{HERO.primaryCta}</Button>
+          <Button href="/#work" variant="secondary">{HERO.secondaryCta}</Button>
         </div>
       </div>
       <p className="label absolute right-[var(--site-gutter)] top-9 hidden items-center gap-3 lg:flex" aria-hidden="true">

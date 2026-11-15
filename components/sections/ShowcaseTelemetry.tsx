@@ -49,8 +49,7 @@ export function ShowcaseTelemetry() {
       </motion.div>
 
       <motion.div variants={panel} className="absolute right-5 bottom-5 hidden text-right sm:right-9 sm:bottom-8 sm:block">
-        <p className="text-gold-300">+35% engagement <span className="text-white/65">/ sample</span></p>
-        <p>Smooth tracking</p>
+        <p className="text-gold-300">Smooth tracking</p>
       </motion.div>
 
       <span className="telemetry-dot absolute top-[43%] left-[51%] hidden sm:block" />

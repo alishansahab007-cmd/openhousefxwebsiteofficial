@@ -176,16 +176,18 @@ body::before {
   }
 
   .property-hero .hero-media {
-    height: 24rem;
+    height: 19rem;
     object-position: 68% center;
   }
 
   .hero-shade {
-    background: linear-gradient(180deg, transparent 4rem, rgb(9 25 37 / 25%) 10rem, var(--hero-navy) 23rem);
+    background: linear-gradient(180deg, transparent 4rem, rgb(9 25 37 / 25%) 7rem, var(--hero-navy) 18.5rem);
   }
 
+  /* Shorter media band than before so the headline and the primary action
+     share the first phone screen. */
   .hero-content {
-    padding-top: 17rem;
+    padding-top: 12.5rem;
     padding-bottom: 3rem;
   }
 
@@ -817,3 +819,111 @@ html[data-welcome="active"] .ambient-gradient i { animation-play-state: paused; 
 @media (prefers-reduced-motion: no-preference) {
   .policy-content { animation: policy-arrival 240ms cubic-bezier(0.16, 1, 0.3, 1); }
 }
+
+/* ==========================================================================
+   V9 — Conversion pass. Additions only; tokens above are the source of truth.
+   ========================================================================== */
+
+/* --- Trust strip: hairline-separated statements, no cards, no icons -------- */
+.trust-point {
+  padding-block: 1.25rem;
+  border-top: 1px solid var(--color-line);
+}
+.trust-point:first-child { border-top: 0; }
+
+@media (min-width: 40rem) {
+  .trust-point { padding-block: 1.5rem; }
+  .trust-point:nth-child(2) { border-top: 0; }
+}
+
+@media (min-width: 64rem) {
+  .trust-point {
+    padding: 1.9rem 2rem;
+    border-top: 0;
+    border-left: 1px solid var(--color-line);
+  }
+  .trust-point:first-child { padding-left: 0; border-left: 0; }
+  .trust-point:last-child { padding-right: 0; }
+}
+
+/* --- Proof labels: legible over any photograph, solid fallback ------------- */
+.proof-chip {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 999px;
+  background: rgb(3 7 18 / 78%);
+  color: var(--color-ink);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+
+/* --- Packages -------------------------------------------------------------- */
+.package-price {
+  margin-top: 0.6rem;
+  min-height: 1.75rem;
+}
+
+/* --- Founder message ------------------------------------------------------- */
+.founder-message { padding-block: clamp(4.5rem, 8vw, 7rem); }
+
+.founder-quote {
+  margin-top: 1.4rem;
+  font-size: clamp(1.2rem, 2.2vw, 1.85rem);
+  font-weight: 450;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.inline-link {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: rgb(var(--glass-gold) / 55%);
+  text-underline-offset: 0.3em;
+  transition: color 200ms ease, text-decoration-color 200ms ease;
+}
+.inline-link:hover { color: var(--color-gold-300); text-decoration-color: currentColor; }
+
+/* --- Walkthrough hotspots (rendered inside the 3D scene via drei <Html>) --- */
+.hotspot-marker {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.hotspot-marker span {
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 1.5px solid var(--color-gold-300);
+  border-radius: 50%;
+  background: rgb(3 7 18 / 80%);
+  box-shadow: 0 0 0 0.3rem rgb(var(--glass-gold) / 14%);
+  transition: transform 200ms var(--ease-glass), background-color 200ms ease, box-shadow 200ms ease;
+}
+.hotspot-marker:hover span,
+.hotspot-marker:focus-visible span,
+.hotspot-marker[aria-expanded="true"] span {
+  background: var(--color-gold-300);
+  box-shadow: 0 0 0 0.45rem rgb(var(--glass-gold) / 22%);
+  transform: scale(1.15);
+}
+.hotspot-tooltip {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid rgb(var(--glass-gold) / 45%);
+  border-radius: 0.375rem;
+  background: #06101c;
+  color: var(--color-ink);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 10px 26px -12px rgb(0 0 0 / 80%);
+}
+.hotspot-tooltip[data-side="below"] { top: 100%; }
+.hotspot-tooltip[data-side="above"] { bottom: 100%; }

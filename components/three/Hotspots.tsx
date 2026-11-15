@@ -14,15 +14,21 @@ export function Hotspots({ hotspots }: { hotspots: readonly Hotspot[] }) {
   return (
     <>
       {hotspots.map((hotspot, i) => (
-        <Html key={hotspot.label} position={hotspot.position} center distanceFactor={8} occlude>
+        <Html key={hotspot.label} position={hotspot.position} center occlude zIndexRange={active === i ? [30, 20] : [10, 0]}>
+          {/* Fixed screen size (no distance scaling): a 44px hit area around a
+              small marker, and a label that opens toward the middle of the frame. */}
           <button
             type="button"
             onClick={() => setActive((current) => (current === i ? null : i))}
+            onKeyDown={(event) => { if (event.key === "Escape") setActive(null); }}
             aria-label={hotspot.label}
-            className="h-3 w-3 cursor-pointer rounded-full border border-gold-500 bg-bg/80"
-          />
+            aria-expanded={active === i}
+            className="hotspot-marker"
+          >
+            <span aria-hidden="true" />
+          </button>
           {active === i && (
-            <div className="absolute left-4 top-0 w-40 rounded-sm border border-gold-500/40 bg-bg/95 p-3 text-xs text-ink">
+            <div role="status" className="hotspot-tooltip" data-side={hotspot.position[1] > 0 ? "below" : "above"}>
               {hotspot.label}
             </div>
           )}

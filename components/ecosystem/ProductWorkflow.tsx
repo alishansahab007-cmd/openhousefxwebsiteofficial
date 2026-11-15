@@ -17,7 +17,7 @@ export function ProductWorkflow({ product }: { product: EcosystemProduct }) {
       <div className={styles.workflowHeading}>
         <div>
           <p className={styles.micro}>{concept ? "Research roadmap" : "Illustrative workflow"}</p>
-          <h4>{title}</h4>
+          <h3>{title}</h3>
         </div>
         <span className={styles.workflowGlyph}><ProductGlyph icon={product.icon} /></span>
       </div>

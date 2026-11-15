@@ -64,7 +64,7 @@ export function EcosystemOrbitalWheel({ selected, onSelect }: { selected: number
       style={geometryStyle}
       data-introduced={introduced}
       data-visible={visible}
-      aria-label="OpenhouseFX orbital ecosystem selector"
+      aria-label="OpenHouseFX orbital ecosystem selector"
     >
       <figcaption className={styles.caption}>
         <span>Technology ecosystem vision</span>
@@ -144,12 +144,12 @@ export function EcosystemOrbitalWheel({ selected, onSelect }: { selected: number
               />
             ) : null}
             <Image src={MEDIA.logoIcon} alt="" width={36} height={36} className={styles.hubLogo} />
-            <span className={styles.hubBrand}>OpenhouseFX</span>
+            <span className={styles.hubBrand}>OpenHouseFX</span>
             <strong>Ecosystem</strong>
           </div>
         </div>
 
-        <div className={styles.nodes} role="group" aria-label="Choose an OpenhouseFX product">
+        <div className={styles.nodes} role="group" aria-label="Choose an OpenHouseFX product">
           {ECOSYSTEM_PRODUCTS.map((product, index) => (
             <div
               key={product.id}

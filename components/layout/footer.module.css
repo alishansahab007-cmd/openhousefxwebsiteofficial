@@ -11,7 +11,7 @@
   color: var(--footer-text);
 }
 
-.brand, .founder, .contactIntro { text-align: center; }
+.brand, .contactIntro { text-align: center; }
 .brand { display: grid; justify-items: center; gap: 0.9rem; }
 
 .logo { width: 11.875rem; height: auto; mix-blend-mode: lighten; }
@@ -25,9 +25,6 @@
   text-transform: uppercase;
 }
 
-.founder { max-width: 53rem; margin: clamp(2.75rem, 5vw, 4.75rem) auto 0; }
-.founder blockquote { margin-block-start: 1.2rem; font-size: clamp(1.15rem, 2.2vw, 1.8rem); font-weight: 450; line-height: 1.5; letter-spacing: -0.025em; }
-.signature { display: block; width: 2.75rem; height: 1px; margin: 1.75rem auto 0; background: var(--footer-gold); }
 
 .contact { max-width: 62rem; margin: clamp(3.75rem, 7vw, 6.5rem) auto 0; }
 .contactIntro { max-width: 38rem; margin-inline: auto; }

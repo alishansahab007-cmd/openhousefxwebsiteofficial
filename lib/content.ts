@@ -166,6 +166,9 @@ export type BeforeAfterPair =
       description: string;
       before: string;
       after: string;
+      /** Shown on the image itself, so the nature of each edit is explicit. */
+      beforeLabel: string;
+      afterLabel: string;
     }
   | {
       kind: "video";
@@ -176,8 +179,12 @@ export type BeforeAfterPair =
     };
 
 export const BEFORE_AFTER = {
-  kicker: "Proof, Not Promises",
+  kicker: "The work",
   headline: "The difference is the deliverable.",
+  // The current examples are demonstration imagery (see lib/media.ts). When
+  // real client photography replaces them, update this note and the labels.
+  disclosure:
+    "Examples are illustrative demonstrations of each service. Furniture and decor in staged images are digitally generated.",
   pairs: [
     {
       kind: "slider",
@@ -185,6 +192,8 @@ export const BEFORE_AFTER = {
       description: "Lighting, color and perspective corrected — the room stays exactly as it is.",
       before: MEDIA.livingRaw,
       after: MEDIA.livingEnhanced,
+      beforeLabel: "Unedited",
+      afterLabel: "Enhanced",
     },
     {
       kind: "slider",
@@ -192,6 +201,8 @@ export const BEFORE_AFTER = {
       description: "Furnished digitally, architecture untouched.",
       before: MEDIA.emptyRoom,
       after: MEDIA.stagedRoom,
+      beforeLabel: "Empty room",
+      afterLabel: "Digitally staged",
     },
     {
       kind: "video",
@@ -213,15 +224,37 @@ export const DISTRIBUTION = {
   image: MEDIA.distributionListing,
 };
 
-export const PACKAGES = [
+export interface ListingPackage {
+  name: string;
+  /** Who the collection is for, in a few words. */
+  bestFor: string;
+  description: string;
+  features: readonly string[];
+  /**
+   * Approved starting price, e.g. "$249". Leave null until the business
+   * approves one: the card then reads "Tailored quotation". Never put an
+   * example or placeholder figure here; it is published as written.
+   */
+  startingPrice: string | null;
+  /** Verified turnaround, e.g. "48 hours from complete assets". Null hides it. */
+  turnaround: string | null;
+  /** Recommended-collection emphasis. Only set with business approval. */
+  featured: boolean;
+}
+
+export const PACKAGES: readonly ListingPackage[] = [
   {
     name: "Essential",
+    bestFor: "MLS-ready listings",
     description: "Enhanced photography and a floor plan, ready for MLS.",
     features: ["Photo enhancement", "Floor plan presentation", "48-hour turnaround"],
+    startingPrice: null,
+    turnaround: null,
     featured: false,
   },
   {
     name: "Professional",
+    bestFor: "Listings that need to perform",
     description: "The complete package for a listing that needs to perform.",
     features: [
       "Everything in Essential",
@@ -229,10 +262,13 @@ export const PACKAGES = [
       "3 social reels",
       "Virtual twilight",
     ],
+    startingPrice: null,
+    turnaround: null,
     featured: true,
   },
   {
     name: "Signature",
+    bestFor: "Competitive or luxury listings",
     description: "Full-scale production for competitive or luxury listings.",
     features: [
       "Everything in Professional",
@@ -240,10 +276,13 @@ export const PACKAGES = [
       "Interactive floor plan",
       "Property landing page",
     ],
+    startingPrice: null,
+    turnaround: null,
     featured: false,
   },
   {
     name: "Luxury",
+    bestFor: "Flagship properties",
     description: "The full OpenHouseFX system for flagship properties.",
     features: [
       "Everything in Signature",
@@ -251,9 +290,11 @@ export const PACKAGES = [
       "Extended social content set",
       "Dedicated producer",
     ],
+    startingPrice: null,
+    turnaround: null,
     featured: false,
   },
-] as const;
+];
 
 export const HOW_IT_WORKS = [
   {
@@ -301,10 +342,81 @@ export const FOR_TEAMS = [
 
 export const FINAL_CTA = {
   headline: "Have a listing? Let's turn it into a campaign.",
-  cta: "Start a Listing",
+  cta: "Send Your First Listing",
+};
+
+export const HERO = {
+  eyebrow: "Real estate media studio",
+  description:
+    "Photo enhancement, virtual staging, twilight conversions, listing films and social reels, produced from the listing media you already have.",
+  primaryCta: "Enhance Your Listing",
+  secondaryCta: "Explore Our Work",
+};
+
+// Every line here restates something already published elsewhere on the site
+// (quotation flow, review step, service definitions, contact details). Add
+// client logos, delivery times or counts only when backed by business records.
+export const TRUST_POINTS = [
+  {
+    title: "A quotation before any work",
+    body: "We confirm the scope and send a tailored quotation before production begins.",
+  },
+  {
+    title: "You approve every deliverable",
+    body: "Nothing goes live until you have reviewed it.",
+  },
+  {
+    title: "True to the property",
+    body: "Enhancement and staging keep the real architecture of the home.",
+  },
+  {
+    title: "Fits the channels you use",
+    body: "Delivered for MLS, Zillow, Realtor.com, your brokerage site and social.",
+  },
+] as const;
+
+export interface Testimonial {
+  name: string;
+  quote: string;
+  /** Only with the client's approval. */
+  organization?: string;
+  market?: string;
+  /** Approved portrait or logo under /public. */
+  image?: string;
+  project?: string;
+}
+
+export interface CaseStudy {
+  listing: string;
+  challenge: string;
+  transformation: string;
+  /** State documented outcomes only; describe the finished assets otherwise. */
+  result: string;
+  image?: string;
+}
+
+// Deliberately empty: the section renders nothing until genuine, approved
+// client feedback or documented projects are added here.
+export const TESTIMONIALS: readonly Testimonial[] = [];
+export const CASE_STUDIES: readonly CaseStudy[] = [];
+
+export const FOUNDER = {
+  heading: "A note from our founder",
+  message:
+    "We built OpenHouseFX with a simple belief: real estate professionals shouldn't have to juggle endless tools and vendors to bring a listing to life. Our mission is to make property media simpler today, while building the technology for a more connected tomorrow.",
+};
+
+export const ECOSYSTEM_PREVIEW = {
+  kicker: "OpenHouseFX technology",
+  headline: "Beyond the listing.",
+  accent: "Built for what comes next.",
+  body: "Explore the growing OpenHouseFX technology ecosystem, designed to support modern real estate operations.",
+  cta: "Explore the Ecosystem",
 };
 
 export const FOOTER = {
   tagline: "Real Estate. Higher Standards.",
   email: "info@openhousefx.com",
+  phone: "(888) 815-0017",
+  telephone: "+18888150017",
 };

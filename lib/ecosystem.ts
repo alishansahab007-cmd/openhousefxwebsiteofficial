@@ -52,7 +52,7 @@ export const ECOSYSTEM_PRODUCTS: readonly EcosystemProduct[] = [
     screenshots: [
       { label: "Overview", src: `${MEDIA}/alphacompanion-overview.webp`, alt: "AlphaCompanion overview with property and CRM navigation and a team workspace summary" },
       { label: "CRM pipeline", src: `${MEDIA}/alphacompanion-pipeline.webp`, alt: "AlphaCompanion sales and leasing board with inquiry, showing, application, and lease stages" },
-      { label: "Suite launcher", src: `${MEDIA}/alphacompanion-suite.webp`, alt: "AlphaCompanion suite launcher with shortcuts to OpenhouseFX products" },
+      { label: "Suite launcher", src: `${MEDIA}/alphacompanion-suite.webp`, alt: "AlphaCompanion suite launcher with shortcuts to OpenHouseFX products" },
       { label: "Product directory", src: `${MEDIA}/alphacompanion-products.webp`, alt: "The AlphaCompanion product directory showing Lead Verifier, Pocket Studio, and a Scraper Ultra listing" },
     ],
     workflow: {
@@ -67,7 +67,7 @@ export const ECOSYSTEM_PRODUCTS: readonly EcosystemProduct[] = [
     area: "Creative production",
     headline: "Creative property media, beautifully connected.",
     summary: "Turn authorized listing media into assets for a more complete presentation.",
-    description: "Explore property media packages, cinematic photo-motion, virtual transformations, and the evolving OpenhouseFX creative workspace.",
+    description: "Explore property media packages, cinematic photo-motion, virtual transformations, and the evolving OpenHouseFX creative workspace.",
     features: [
       "Cinematic presentations from authorized listing photos",
       "Virtual staging and twilight services",

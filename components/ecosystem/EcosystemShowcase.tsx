@@ -35,11 +35,11 @@ export function EcosystemShowcase() {
     <>
       <div className={styles.intro}>
         <Reveal stagger={0.09} className={styles.introCopy}>
-          <p className={`${styles.micro} ${styles.eyebrow}`}>Next-gen real estate technology by OpenhouseFX</p>
-          <h2 id="technology-heading" className="editorial-heading">
-            The OpenhouseFX Ecosystem.
+          <p className={`${styles.micro} ${styles.eyebrow}`}>Next-gen real estate technology by OpenHouseFX</p>
+          <h1 id="technology-heading" className="editorial-heading">
+            The OpenHouseFX Ecosystem.
             <em className="editorial-accent block">Built for a Better Tomorrow.</em>
-          </h2>
+          </h1>
           <span className={styles.goldRule} aria-hidden="true" />
           <p className={styles.introText}>
             Four ambitious technology products. One vision for a smarter real estate industry.
@@ -48,7 +48,7 @@ export function EcosystemShowcase() {
           </p>
           <div className={styles.roadmap}>
             <span className={styles.status}>Roadmap preview</span>
-            <span>The next chapter of OpenhouseFX</span>
+            <span>The next chapter of OpenHouseFX</span>
           </div>
         </Reveal>
         <EcosystemOrbitalWheel selected={selected} onSelect={setSelected} />

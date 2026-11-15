@@ -12,9 +12,11 @@ interface SliderProps {
   description: string;
   before: string;
   after: string;
+  beforeLabel: string;
+  afterLabel: string;
 }
 
-function BeforeAfterSlider({ label, description, before, after }: SliderProps) {
+function BeforeAfterSlider({ label, description, before, after, beforeLabel, afterLabel }: SliderProps) {
   const [position, setPosition] = useState(50);
   const trackRef = useRef<HTMLDivElement>(null);
   const draggingRef = useRef(false);
@@ -82,12 +84,12 @@ function BeforeAfterSlider({ label, description, before, after }: SliderProps) {
       >
         <Image
           src={after}
-          alt={`${label} — after`}
+          alt={`${afterLabel} example for ${label}`}
           fill
           sizes="(min-width: 768px) 33vw, 100vw"
           className="object-cover"
         />
-        <span className="label absolute top-4 right-4 z-10 !text-gold-300">Enhanced</span>
+        <span className="proof-chip absolute top-3 right-3 z-10 !text-gold-300">{afterLabel}</span>
 
         <div
           className="absolute inset-0"
@@ -95,12 +97,12 @@ function BeforeAfterSlider({ label, description, before, after }: SliderProps) {
         >
           <Image
             src={before}
-            alt={`${label} — before`}
+            alt={`${beforeLabel} example for ${label}`}
             fill
             sizes="(min-width: 768px) 33vw, 100vw"
             className="object-cover"
           />
-          <span className="label absolute top-4 left-4 !text-ink-dim">Raw</span>
+          <span className="proof-chip absolute top-3 left-3">{beforeLabel}</span>
         </div>
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/45 via-transparent to-transparent" />
@@ -182,11 +184,11 @@ function BeforeAfterVideoReveal({ label, description, poster, videoSrc }: VideoR
 
 export function BeforeAfter() {
   return (
-    <section className="border-t border-line bg-bg py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6 md:px-14">
+    <section id="work" className="bg-bg py-24 md:py-28" aria-labelledby="work-heading">
+      <div className="site-shell">
         <Reveal className="max-w-2xl">
-          <SectionLabel>{BEFORE_AFTER.kicker}</SectionLabel>
-          <h2 className="font-display mt-4 text-3xl font-semibold leading-tight text-ink md:text-4xl">
+          <SectionLabel className="editorial-label">{BEFORE_AFTER.kicker}</SectionLabel>
+          <h2 id="work-heading" className="editorial-heading mt-5">
             {BEFORE_AFTER.headline}
           </h2>
         </Reveal>
@@ -211,10 +213,13 @@ export function BeforeAfter() {
                 description={pair.description}
                 before={pair.before}
                 after={pair.after}
+                beforeLabel={pair.beforeLabel}
+                afterLabel={pair.afterLabel}
               />
             )
           )}
         </Reveal>
+        <p className="mt-8 max-w-2xl text-xs leading-relaxed text-ink-dim">{BEFORE_AFTER.disclosure}</p>
       </div>
     </section>
   );
