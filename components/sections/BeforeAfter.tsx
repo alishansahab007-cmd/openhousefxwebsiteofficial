@@ -6,6 +6,7 @@ import { BEFORE_AFTER } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { HoverVideoCard } from "@/components/services/HoverVideoCard";
+import { StudioFilms } from "@/components/sections/StudioFilms";
 
 interface SliderProps {
   label: string;
@@ -219,6 +220,7 @@ export function BeforeAfter() {
           )}
         </Reveal>
         <p className="mt-8 max-w-2xl text-xs leading-relaxed text-ink-dim">{BEFORE_AFTER.disclosure}</p>
+        <StudioFilms />
       </div>
     </section>
   );
