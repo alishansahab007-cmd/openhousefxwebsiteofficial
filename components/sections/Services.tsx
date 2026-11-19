@@ -36,7 +36,7 @@ export function Services() {
                 <p className="mt-3 text-sm leading-relaxed text-ink-dim">
                   {service.description}
                 </p>
-                <div className="mt-6 h-px w-8 bg-line transition-all duration-300 group-hover:w-12 group-hover:bg-gold-500 group-focus-within:w-12 group-focus-within:bg-gold-500" />
+                <div className="mt-6 h-px w-8 origin-left bg-line transition-[scale,background-color] duration-200 group-hover:bg-gold-500 group-focus-within:bg-gold-500 motion-safe:group-hover:scale-x-150 motion-safe:group-focus-within:scale-x-150" />
               </div>
             </div>
           ))}

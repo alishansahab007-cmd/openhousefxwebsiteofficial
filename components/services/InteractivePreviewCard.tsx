@@ -55,9 +55,7 @@ export function InteractivePreviewCard({ poster, label, forceActive, sizes = SIZ
         alt=""
         fill
         sizes={sizes}
-        className={`object-cover transition-opacity duration-500 ${
-          showScene ? "opacity-0" : "opacity-100"
-        }`}
+        className="object-cover"
       />
       {showScene ? (
         <>

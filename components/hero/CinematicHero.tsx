@@ -16,7 +16,7 @@ export function CinematicHero() {
         <p className="hero-description text-ink-dim">
           {HERO.description}
         </p>
-        <div className="mt-8 flex flex-wrap gap-3 md:mt-10">
+        <div className="hero-actions mt-8 flex flex-wrap gap-3 md:mt-10">
           <Button href="/start-a-listing">{HERO.primaryCta}</Button>
           <Button href="/#work" variant="secondary">{HERO.secondaryCta}</Button>
         </div>

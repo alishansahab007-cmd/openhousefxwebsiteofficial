@@ -1,19 +1,16 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
-import { useAnimate } from "framer-motion";
+import { useEffect, useRef, type ReactNode } from "react";
 
 interface RevealProps {
   children: ReactNode;
   className?: string;
   delay?: number;
   stagger?: number;
-  y?: number;
-  stiffness?: number;
 }
 
-export function Reveal({ children, className, delay = 0, stagger, y = 20, stiffness = 100 }: RevealProps) {
-  const [scope, animate] = useAnimate<HTMLDivElement>();
+export function Reveal({ children, className, delay = 0, stagger }: RevealProps) {
+  const scope = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const wrapper = scope.current;
@@ -24,23 +21,13 @@ export function Reveal({ children, className, delay = 0, stagger, y = 20, stiffn
 
     // Server HTML stays visible. Only play an entrance when a target scrolls into view.
     const observer = new IntersectionObserver((entries) => {
-      const entering = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => targets.indexOf(a.target) - targets.indexOf(b.target));
-
+      const entering = entries.filter((entry) => entry.isIntersecting);
       entering.forEach(({ target }, index) => {
         observer.unobserve(target);
-        if (preference.matches) return;
-        animate(
-          target,
-          { opacity: [0, 1], y: [y, 0] },
-          {
-            type: "spring",
-            stiffness,
-            damping: 20,
-            delay: delay + index * (stagger ?? 0),
-          }
-        );
+        if (preference.matches || !(target instanceof HTMLElement)) return;
+        const wait = Math.min(0.16, delay + index * Math.min(stagger ?? 0, 0.055));
+        target.style.setProperty("--reveal-delay", `${wait}s`);
+        target.dataset.reveal = stagger ? "item" : "section";
       });
     });
 
@@ -50,7 +37,20 @@ export function Reveal({ children, className, delay = 0, stagger, y = 20, stiffn
     }
 
     return () => observer.disconnect();
-  }, [animate, delay, scope, stagger, stiffness, y]);
+  }, [delay, stagger]);
 
-  return <div ref={scope} className={className}>{children}</div>;
+  return (
+    <div
+      ref={scope}
+      className={className}
+      onAnimationEnd={({ animationName, target }) => {
+        if (animationName === "section-reveal" && target instanceof HTMLElement) {
+          delete target.dataset.reveal;
+          target.style.removeProperty("--reveal-delay");
+        }
+      }}
+    >
+      {children}
+    </div>
+  );
 }

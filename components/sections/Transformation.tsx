@@ -17,7 +17,6 @@ const ShowcaseTelemetry = dynamic(
 
 const FEATURED_SERVICE = "02";
 const SHOWCASE_SIZES = "(min-width: 1024px) 896px, 90vw";
-const SWAP_FADE_MS = 180;
 const OUTPUT_NOTES = [
   "Image enhancement",
   "Motion study",
@@ -32,38 +31,61 @@ const OUTPUT_NOTES = [
 export function Transformation() {
   const [selectedNumber, setSelectedNumber] = useState<string | null>(FEATURED_SERVICE);
   const [displayNumber, setDisplayNumber] = useState<string | null>(FEATURED_SERVICE);
-  const [fading, setFading] = useState(false);
+  const [previewFailed, setPreviewFailed] = useState(false);
   const [featuredPoster, setFeaturedPoster] = useState(true);
   const reducedMotion = useReducedMotion();
-  const swapTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const pendingRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const frameInView = useInView(frameRef, { amount: "some" });
 
-  useEffect(() => () => clearTimeout(swapTimer.current), []);
+  const switching = selectedNumber !== displayNumber;
+  useEffect(() => {
+    const layer = pendingRef.current;
+    if (!switching || !layer) return;
+    let cancelled = false;
+    let fade: Animation | undefined;
+
+    async function showWhenReady(frame: HTMLDivElement) {
+      // Decode the actual responsive image in its final box. For a comparison
+      // both stills must be ready; for the mock website only its hero is needed.
+      const service = SERVICES.find((item) => item.number === selectedNumber);
+      const images = Array.from(frame.querySelectorAll("img")).slice(0, service?.kind === "before-after" ? 2 : 1);
+      try {
+        await Promise.all(images.map((img) => {
+          img.loading = "eager";
+          return img.decode();
+        }));
+      } catch {
+        if (!cancelled) {
+          setSelectedNumber(displayNumber);
+          setPreviewFailed(true);
+        }
+        return;
+      }
+      if (cancelled) return;
+      if (!reducedMotion && typeof frame.animate === "function") {
+        fade = frame.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "ease-out", fill: "forwards" });
+        try { await fade.finished; } catch { return; }
+      }
+      if (!cancelled) {
+        setFeaturedPoster(false);
+        setDisplayNumber(selectedNumber);
+      }
+    }
+
+    void showWhenReady(layer);
+    return () => { cancelled = true; fade?.cancel(); };
+  }, [selectedNumber, displayNumber, switching, reducedMotion]);
 
   function selectOutput(serviceNumber: string) {
     const next = selectedNumber === serviceNumber ? null : serviceNumber;
     setSelectedNumber(next);
-    clearTimeout(swapTimer.current);
+    setPreviewFailed(false);
 
     const frame = frameRef.current;
     if (frame && frame.getBoundingClientRect().bottom < 80) {
       frame.scrollIntoView({ block: "start" });
     }
-
-    if (reducedMotion) {
-      setFeaturedPoster(false);
-      setDisplayNumber(next);
-      setFading(false);
-      return;
-    }
-
-    setFading(true);
-    swapTimer.current = setTimeout(() => {
-      setFeaturedPoster(false);
-      setDisplayNumber(next);
-      setFading(false);
-    }, SWAP_FADE_MS);
   }
 
   const activeService = SERVICES.find((service) => service.number === displayNumber);
@@ -72,10 +94,10 @@ export function Transformation() {
   const showCaption = activeService?.kind !== "interactive-3d" && activeService?.kind !== "scroll-mock";
 
   return (
-    <section id="deliverables" className="showcase-section relative isolate overflow-hidden border-t border-line py-24" aria-labelledby="deliverables-heading">
+    <section id="deliverables" data-frame-visible={frameInView || undefined} className="showcase-section relative isolate overflow-hidden border-t border-line py-24" aria-labelledby="deliverables-heading">
       <div className="showcase-ambient pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="site-shell relative">
-        <Reveal className="mx-auto max-w-3xl text-center" y={30} stiffness={70}>
+        <Reveal className="mx-auto max-w-3xl text-center">
           <SectionLabel className="editorial-label justify-center">{TRANSFORMATION.kicker}</SectionLabel>
           <h2 id="deliverables-heading" className="editorial-heading mt-5">
             One listing. <em className="editorial-accent">Eight ways to show it.</em>
@@ -87,21 +109,21 @@ export function Transformation() {
 
         <div id="showcase-preview" ref={frameRef} className="glass-liquid-crystal mx-auto mt-12 max-w-4xl rounded-xl p-1.5 sm:p-2">
           <div className="showcase-frame relative isolate aspect-video overflow-hidden rounded-lg bg-bg">
-            <div
-              className={`absolute inset-0 transition-opacity duration-200 ${fading ? "opacity-45" : "opacity-100"}`}
-            >
-              {activeService ? (
-                <ServiceMedia key={activeService.number} service={activeService} forceActive={frameInView} sizes={SHOWCASE_SIZES} preload={featuredPoster} />
-              ) : (
-                <Image
-                  src={TRANSFORMATION.inputImage}
-                  alt="Exterior property photograph before enhancement"
-                  fill
-                  sizes={SHOWCASE_SIZES}
-                  className="object-cover"
-                />
-              )}
-            </div>
+            {(switching ? [displayNumber, selectedNumber] : [displayNumber]).map((number) => {
+              const pending = number !== displayNumber;
+              const service = SERVICES.find((item) => item.number === number);
+              return (
+                <div key={number ?? "input"} ref={pending ? pendingRef : undefined} inert={pending}
+                  aria-hidden={pending || undefined} className={`absolute inset-0 ${pending ? "opacity-0" : ""}`}>
+                  {service ? (
+                    <ServiceMedia service={service} forceActive={frameInView && !pending} sizes={SHOWCASE_SIZES} preload={featuredPoster && !pending} />
+                  ) : (
+                    <Image src={TRANSFORMATION.inputImage} alt="Exterior property photograph before enhancement" fill sizes={SHOWCASE_SIZES} className="object-cover" />
+                  )}
+                </div>
+              );
+            })}
+            {previewFailed && <p role="status" className="absolute end-3 top-3 z-10 rounded-sm bg-bg px-3 py-2 text-sm text-ink">Preview unavailable. Select it to retry.</p>}
             <span className="sr-only" aria-live="polite">{selectedLabel ?? TRANSFORMATION.input} preview</span>
             {showCaption ? (
               <>
@@ -115,7 +137,7 @@ export function Transformation() {
                 </div>
               </>
             ) : null}
-            {frameInView && !fading && isFilm ? <ShowcaseTelemetry /> : null}
+            {frameInView && !switching && isFilm ? <ShowcaseTelemetry /> : null}
           </div>
         </div>
 
