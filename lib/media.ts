@@ -25,4 +25,5 @@ export const MEDIA = {
   interactiveMassingPoster: "/media/interactive-massing-poster.webp",
   logoIcon: "/media/logo-icon.webp",
   logoLockup: "/media/logo-lockup.webp",
+  contactCard: "/media/openhousefx-contact-card.webp",
 } as const;

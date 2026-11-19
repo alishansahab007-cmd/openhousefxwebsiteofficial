@@ -6,6 +6,7 @@ import { BEFORE_AFTER } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { HoverVideoCard } from "@/components/services/HoverVideoCard";
+import { StudioFilms } from "@/components/sections/StudioFilms";
 
 interface SliderProps {
   label: string;
@@ -18,14 +19,12 @@ interface SliderProps {
 
 function BeforeAfterSlider({ label, description, before, after, beforeLabel, afterLabel }: SliderProps) {
   const [position, setPosition] = useState(50);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const draggingRef = useRef(false);
+  const drag = useRef<{ id: number; left: number; width: number } | null>(null);
 
-  function setFromClientX(clientX: number) {
-    const track = trackRef.current;
-    if (!track) return;
-    const rect = track.getBoundingClientRect();
-    const pct = ((clientX - rect.left) / rect.width) * 100;
+  function moveDivider(e: PointerEvent<HTMLDivElement>) {
+    const track = drag.current;
+    if (!track || track.id !== e.pointerId) return;
+    const pct = ((e.clientX - track.left) / track.width) * 100;
     setPosition(Math.min(100, Math.max(0, pct)));
   }
 
@@ -34,19 +33,18 @@ function BeforeAfterSlider({ label, description, before, after, beforeLabel, aft
   }
 
   function handlePointerDown(e: PointerEvent<HTMLDivElement>) {
-    e.currentTarget.setPointerCapture(e.pointerId);
-    draggingRef.current = true;
-    setFromClientX(e.clientX);
+    if (!e.isPrimary || e.button !== 0 || drag.current) return;
+    const track = e.currentTarget;
+    const width = track.clientWidth;
+    if (!width) return;
+    drag.current = { id: e.pointerId, left: track.getBoundingClientRect().left + track.clientLeft, width };
+    track.setPointerCapture(e.pointerId);
+    moveDivider(e);
   }
-  function handlePointerMove(e: PointerEvent<HTMLDivElement>) {
-    if (!draggingRef.current) return;
-    setFromClientX(e.clientX);
-  }
-  function handlePointerUp(e: PointerEvent<HTMLDivElement>) {
-    draggingRef.current = false;
-    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    }
+  function endDrag(e: PointerEvent<HTMLDivElement>) {
+    if (drag.current?.id !== e.pointerId) return;
+    if (e.type === "pointerup") moveDivider(e);
+    drag.current = null;
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
@@ -74,16 +72,16 @@ function BeforeAfterSlider({ label, description, before, after, beforeLabel, aft
   return (
     <div>
       <div
-        ref={trackRef}
-        className="relative aspect-[16/10] w-full touch-pan-y select-none overflow-hidden rounded-sm border border-line"
+        className="relative aspect-[16/10] w-full touch-pan-y touch-pinch-zoom select-none overflow-hidden rounded-sm border border-line"
         onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={handlePointerUp}
-        onLostPointerCapture={() => { draggingRef.current = false; }}
+        onPointerMove={moveDivider}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onLostPointerCapture={endDrag}
       >
         <Image
           src={after}
+          draggable={false}
           alt={`${afterLabel} example for ${label}`}
           fill
           sizes="(min-width: 768px) 33vw, 100vw"
@@ -97,6 +95,7 @@ function BeforeAfterSlider({ label, description, before, after, beforeLabel, aft
         >
           <Image
             src={before}
+            draggable={false}
             alt={`${beforeLabel} example for ${label}`}
             fill
             sizes="(min-width: 768px) 33vw, 100vw"
@@ -107,16 +106,17 @@ function BeforeAfterSlider({ label, description, before, after, beforeLabel, aft
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/45 via-transparent to-transparent" />
 
-        <div className="absolute inset-y-0 bg-gold-500" style={{ left: `${position}%`, width: 1 }}>
+        <div className="pointer-events-none absolute inset-0 border-l border-gold-500" style={{ transform: `translateX(${position}%)` }}>
           <div
             role="slider"
             tabIndex={0}
             aria-label={`${label} comparison position`}
             aria-valuenow={Math.round(position)}
+            aria-valuetext={`${Math.round(position)}% ${beforeLabel}`}
             aria-valuemin={0}
             aria-valuemax={100}
             onKeyDown={handleKeyDown}
-            className="absolute top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full border border-gold-500 bg-bg before:absolute before:-inset-1 before:content-[''] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
+            className="pointer-events-auto absolute top-1/2 left-0 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full border border-gold-500 bg-bg before:absolute before:-inset-1 before:content-[''] focus-visible:ring-2 focus-visible:ring-gold-500"
           >
             <span className="text-[10px] text-gold-500">⟷</span>
           </div>
@@ -220,6 +220,7 @@ export function BeforeAfter() {
           )}
         </Reveal>
         <p className="mt-8 max-w-2xl text-xs leading-relaxed text-ink-dim">{BEFORE_AFTER.disclosure}</p>
+        <StudioFilms />
       </div>
     </section>
   );

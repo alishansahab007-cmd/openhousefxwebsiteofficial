@@ -103,6 +103,17 @@ export function Footer() {
             </nav>
           </div>
         </div>
+
+        <a href={MEDIA.contactCard} className="mx-auto mt-8 block w-full max-w-4xl rounded-md">
+          <Image
+            src={MEDIA.contactCard}
+            alt="View the full-size OpenHouseFX Team contact card. info@openhousefx.com, (888) 815-0017, (203) 557-7077, www.openhousefx.com."
+            width={2172}
+            height={724}
+            sizes="(min-width: 1024px) 896px, 100vw"
+            className="block h-auto w-full"
+          />
+        </a>
       </div>
     </footer>
   );
